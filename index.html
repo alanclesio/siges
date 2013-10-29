@@ -9,6 +9,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript"
             src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.0.0/bootbox.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
     <script type="text/javascript"
     src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular-resource.min.js"></script>
@@ -22,7 +23,7 @@
     <script type="text/javascript" src="app/services.js"></script>
 </head>
 <body ng-app="siges">
-<div class="container">
+<div class="container" ng-controller="EntrarCtrl">
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,13 +38,16 @@
                 <li ng-class="active" ng-repeat="menu in menus"><a href="{{menu.url}}">{{menu.nome}}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/perfil" style="display: none;" ng-show="logado">Perfil</a></li>
-                <li><a href="#/entrar" style="display: none;" ng-show="!logado">Entrar</a></li>
-                <li><a href="#/sair" style="display: none;" ng-show="logado">Sair</a></li>
+                <li><a href="#/perfil" style="display: none;" ng-show="usuario">Perfil</a></li>
+                <li><a href="#/entrar" style="display: none;" ng-show="!usuario">Entrar</a></li>
+                <li><a href="#" ng-click="logout()" style="display: none;" ng-show="usuario">Sair</a></li>
             </ul>
         </div>
     </div>
-    <div ng-view></div>
+    <div class="row">
+        <div ng-view></div>
+    </div>
+    <div class="modal fade in"></div>
 </div>
 </body>
 </html>
