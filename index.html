@@ -1,18 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title>SiGeS - Sistema de Gestão Escolar</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/estilo.css"/>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
-    <script type="text/javascript"
-            src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular-resource.min.js"></script>
     <script type="text/javascript"
             src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+    <script type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular-resource.min.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+    <script type="text/javascript" src="//cdn.firebase.com/libs/angularfire/0.3.0/angularfire.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+    <script type="text/javascript" src="app/directives.js"></script>
+    <script type="text/javascript" src="app/filters.js"></script>
+    <script type="text/javascript" src="app/services.js"></script>
 </head>
-<body>
+<body ng-app="siges">
 <div class="container">
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">SiGeS</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ng-class="active" ng-repeat="menu in menus"><a href="{{menu.url}}">{{menu.nome}}</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/perfil" style="display: none;" ng-show="logado">Perfil</a></li>
+                <li><a href="#/entrar" style="display: none;" ng-show="!logado">Entrar</a></li>
+                <li><a href="#/sair" style="display: none;" ng-show="logado">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-view></div>
 </div>
 </body>
 </html>
