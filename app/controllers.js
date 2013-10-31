@@ -2,7 +2,12 @@
 
 angular.module('siges.controllers', []).
     // controle responsável por manter usuários
-    controller('UsuariosCriarCtrl',['$scope', '$location', '$timeout', 'Usuarios', function($scope, $location, $timeout, Usuarios){
+    controller('UsuariosCriarCtrl',[
+        '$scope',
+        '$location',
+        '$timeout',
+        'Usuarios',
+        function($scope, $location, $timeout, Usuarios){
         $scope.salvar = function() {
             Usuarios.add($scope.usuario, function() {
                 bootbox.alert('O usuário <strong>' + $scope.usuario.nome + '</strong> foi cadastrado com sucesso!', function() {
@@ -16,7 +21,13 @@ angular.module('siges.controllers', []).
     }]).
     controller('UsuariosEditarCtrl').
     controller('UsuariosListarCtrl').
-    controller('PrimeiroAcessoCtrl', ['$scope', '$timeout', '$location', 'Autenticacao', 'Usuarios', function($scope, $timeout, $location, Autenticacao, Usuarios){
+    controller('PrimeiroAcessoCtrl', [
+        '$scope',
+        '$timeout',
+        '$location',
+        'Autenticacao',
+        'Usuarios',
+        function($scope, $timeout, $location, Autenticacao, Usuarios){
         $scope.usuario = {
             email:'zelda@gmail.com'
         }
@@ -79,7 +90,13 @@ angular.module('siges.controllers', []).
         }
     }]).
     // controle responsável pela autenticação de usuários
-    controller('EntrarCtrl', ['$scope', 'Usuarios', 'Autenticacao', '$rootScope', '$location', '$timeout', function ($scope, Usuarios, Autenticacao, $rootScope, $location, $timeout) {
+    controller('EntrarCtrl', [
+        '$scope',
+        'Usuarios',
+        'Autenticacao',
+        '$rootScope',
+        '$location',
+        '$timeout', function ($scope, Usuarios, Autenticacao, $rootScope, $location, $timeout) {
         if($scope.usuarioLogado){
             if($location.$$path == '/entrar'){
                 $location.path('/');
