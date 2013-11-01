@@ -140,7 +140,7 @@ angular.module('siges.controllers', []).
             $rootScope.$on("loggedin", function (event, user) {
                 var stop;
                 stop = $timeout(function () {
-                    if (Usuarios) { // verificar o logon de usuários
+                    if (Usuarios) { // verificar o logon de usuários usando cookie
                         if (!$scope.usuarioLogado) {
                             angular.forEach(Usuarios, function (usuario, key) {
                                 if (user.md5_hash == usuario.md5_hash) {
