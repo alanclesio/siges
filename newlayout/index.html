@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8"/>
+    <title>SiGeS - Sistema de Gestão Escolar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600' rel='stylesheet'
+          type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/jquery.gritter.css" rel="stylesheet">
+    <link href="css/fullcalendar.css" rel="stylesheet">
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/rateit.css" rel="stylesheet">
+    <link href="css/jquery.cleditor.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+</head>
+<body ng-app="siges">
+<div id="wrap">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="index.html">SiGeS - Sistema de Gestão Escolar</a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navbar navbar-inverse" role="banner">
+                        <div class="navbar-header">
+                            <button class="navbar-toggle" type="button" data-toggle="collapse"
+                                    data-target=".bs-navbar-collapse">
+                                <span>Menu</span>
+                            </button>
+                        </div>
+                        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                            class="icon-comments"></i>
+                                        Bate-papo <span class="label label-success">15</span> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu dropdown-big animated">
+                                        <div class="dropdown-head">
+                                            <span class="dropdown-title">Conversas recentes</span>
+                                        </div>
+                                        <div class="dropdown-body">
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/b1fb3a82d68d8f147e8e30c389e91a76?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Olá, como
+                                                vai?</a><span
+                                                    class="label label-info pull-right">3 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Tá sabendo
+                                                alguma...</a><span
+                                                    class="label label-info pull-right">17 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/a856f0348a2e1c8fa9c2b8b4f1e618d7?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Ontem eu falei
+                                                com...</a><span
+                                                    class="label label-info pull-right">42 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Tá aí?</a><span
+                                                    class="label label-info pull-right">2 hr</span></li>
+                                        </div>
+                                        <div class="dropdown-foot text-center">
+                                            <a href="#">Ver todos</a>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Minha conta <b
+                                            class="caret"></b></a>
+                                    <ul class="dropdown-menu animated">
+                                        <li><a href="profile.html">Perfil</a></li>
+                                        <li><a href="login.html">Sair</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content blocky">
+        <div class="container">
+            <div class="sidebar-dropdown"><a href="#">MENU</a></div>
+            <div class="row">
+                <div class="sidey col-md-2">
+                    <div class="side-cont">
+                        <ul class="nav">
+                            <li class="current"><a href="#"><i class="icon-home"></i> Painel</a></li>
+                            <li><a href="#"><i class="icon-exclamation-sign"></i> Avisos</a></li>
+                            <li class="has_submenu">
+                                <a href="#">
+                                    <i class="icon-plus"></i> Cadastros
+                                    <span class="caret pull-right"></span>
+                                </a>
+                                <ul>
+                                    <li><a href="#">Usuários</a></li>
+                                    <li><a href="#">Instituições</a></li>
+                                    <li><a href="#">Disciplinas</a></li>
+                                    <li><a href="#">Turmas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="icon-stackexchange"></i> Discussão</a></li>
+                            <li><a href="#"><i class="icon-calendar"></i> Calendário</a></li>
+                            <li><a href="#"><i class="icon-asterisk"></i> Frequência</a></li>
+                            <li><a href="#"><i class="icon-book"></i> Materiais</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mainy col-md-10">
+                    <div ng-view></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="awidget">
+                                <div class="awidget-head">
+                                    <h3>Quick Post</h3>
+                                </div>
+                                <div class="awidget-body">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Title</label>
+
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" placeholder="Enter Title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Content</label>
+
+                                            <div class="col-lg-10">
+                                                <textarea class="form-control" rows="3"
+                                                          placeholder="Enter Content"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Category</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control">
+                                                    <option>General</option>
+                                                    <option>Web Designing</option>
+                                                    <option>Software Designing</option>
+                                                    <option>UI/UX</option>
+                                                    <option>Android App</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Tags</label>
+
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" placeholder="Enter Tags">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Publish Immediatly
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <button type="submit" class="btn btn-danger">Publish</button>
+                                                <button type="submit" class="btn btn-success">Save Draft</button>
+                                                <button type="submit" class="btn btn-default">Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="copy text-center">
+        Copyright 2013 &copy; - <a href="http://tecla.me/siges">SiGeS - Sistema de Gestão Escolar</a>
+    </div>
+</footer>
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/respond.min.js"></script>
+<script src="js/html5shiv.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
