@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="#">
 </head>
 <body ng-app="siges">
-<div id="wrap">
+<div id="wrap" ng-controller="EntrarCtrl">
     <div class="header">
         <div class="container">
             <div class="row">
@@ -118,73 +118,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="mainy col-md-10">
+                <div class="col-md-10">
                     <div ng-view></div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="awidget">
-                                <div class="awidget-head">
-                                    <h3>Quick Post</h3>
-                                </div>
-                                <div class="awidget-body">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Title</label>
-
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" placeholder="Enter Title">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Content</label>
-
-                                            <div class="col-lg-10">
-                                                <textarea class="form-control" rows="3"
-                                                          placeholder="Enter Content"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Category</label>
-
-                                            <div class="col-lg-10">
-                                                <select class="form-control">
-                                                    <option>General</option>
-                                                    <option>Web Designing</option>
-                                                    <option>Software Designing</option>
-                                                    <option>UI/UX</option>
-                                                    <option>Android App</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">Tags</label>
-
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" placeholder="Enter Tags">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Publish Immediatly
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
-                                                <button type="submit" class="btn btn-danger">Publish</button>
-                                                <button type="submit" class="btn btn-success">Save Draft</button>
-                                                <button type="submit" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -196,11 +131,23 @@
         Copyright 2013 &copy; - <a href="http://tecla.me/siges">SiGeS - Sistema de Gestão Escolar</a>
     </div>
 </footer>
-<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/respond.min.js"></script>
-<script src="js/html5shiv.js"></script>
-<script src="js/custom.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/respond.min.js"></script>
+<script type="text/javascript" src="js/html5shiv.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootbox.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/md5-service.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/libs/angularfire/0.3.0/angularfire.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="app/controllers.js"></script>
+<script type="text/javascript" src="app/directives.js"></script>
+<script type="text/javascript" src="app/factories.js"></script>
+<script type="text/javascript" src="app/filters.js"></script>
+<script type="text/javascript" src="app/services.js"></script>
 </body>
 </html>
