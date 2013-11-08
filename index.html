@@ -1,12 +1,174 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Siges - Sistema de Gestão Escolar</title>
+    <meta charset="utf8"/>
+    <title>SiGeS - Sistema de Gestão Escolar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600' rel='stylesheet'
+          type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/jquery.gritter.css" rel="stylesheet">
+    <link href="css/fullcalendar.css" rel="stylesheet">
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/rateit.css" rel="stylesheet">
+    <link href="css/jquery.cleditor.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
 </head>
-<body>
-<div class="container">
-    Testes
+<body ng-app="siges">
+<div id="wrap" ng-controller="EntrarCtrl">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="index.html">SiGeS - Sistema de Gestão Escolar</a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navbar navbar-inverse" role="banner">
+                        <div class="navbar-header">
+                            <button class="navbar-toggle" type="button" data-toggle="collapse"
+                                    data-target=".bs-navbar-collapse">
+                                <span>Menu</span>
+                            </button>
+                        </div>
+                        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                            <ul class="nav navbar-nav" ng-show="usuarioLogado" style="display: none;">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                            class="icon-comments"></i>
+                                        Bate-papo <span class="label label-success">15</span> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu dropdown-big animated">
+                                        <div class="dropdown-head">
+                                            <span class="dropdown-title">Conversas recentes</span>
+                                        </div>
+                                        <div class="dropdown-body">
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/b1fb3a82d68d8f147e8e30c389e91a76?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Olá, como
+                                                vai?</a><span
+                                                    class="label label-info pull-right">3 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Tá sabendo
+                                                alguma...</a><span
+                                                    class="label label-info pull-right">17 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/a856f0348a2e1c8fa9c2b8b4f1e618d7?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Ontem eu falei
+                                                com...</a><span
+                                                    class="label label-info pull-right">42 min</span></li>
+                                            <li><img class="img-thumbnail"
+                                                     src="http://www.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=25"
+                                                     alt="Alan Clésio" title="Alan Clésio"/> <a href="#">Tá aí?</a><span
+                                                    class="label label-info pull-right">2 hr</span></li>
+                                        </div>
+                                        <div class="dropdown-foot text-center">
+                                            <a href="#">Ver todos</a>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Minha conta <b
+                                            class="caret"></b></a>
+                                    <ul class="dropdown-menu animated">
+                                        <li><a href="profile.html">Perfil</a></li>
+                                        <li><a href="#" ng-click="logout()">Sair</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content blocky">
+        <div class="container" ng-show="usuarioLogado" style="display: none;">
+            <div class="sidebar-dropdown"><a href="#">MENU</a></div>
+            <div class="row">
+                <div class="sidey col-md-2">
+                    <div class="side-cont">
+                        <ul class="nav">
+                            <li class="current"><a href="#"><i class="icon-home"></i> Painel</a></li>
+                            <li><a href="#"><i class="icon-exclamation-sign"></i> Avisos</a></li>
+                            <li class="has_submenu">
+                                <a href="#">
+                                    <i class="icon-plus"></i> Cadastros
+                                    <span class="caret pull-right"></span>
+                                </a>
+                                <ul>
+                                    <li><a href="#">Usuários</a></li>
+                                    <li><a href="#">Instituições</a></li>
+                                    <li><a href="#">Disciplinas</a></li>
+                                    <li><a href="#">Turmas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="icon-stackexchange"></i> Discussão</a></li>
+                            <li><a href="#"><i class="icon-calendar"></i> Calendário</a></li>
+                            <li><a href="#"><i class="icon-asterisk"></i> Frequência</a></li>
+                            <li><a href="#"><i class="icon-book"></i> Materiais</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div ng-view></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="container" ng-show="!usuarioLogado" style="display: none;">
+            <div class="col-md-4 col-md-offset-4">
+                <form name="entrar">
+                    <h2 class="form-signin-heading">Autentique-se</h2>
+
+                    <div class="form-group">
+                        <input name="email" type="email" class="form-control" placeholder="Seu e-mail" autofocus="" ng-model="usuario.email" required>
+                    </div>
+                    <div class="form-group">
+                        <input name="password" type="password" class="form-control" placeholder="Sua senha" ng-model="usuario.senha" required>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="usuario.lembrar"> Lembrar minha senha
+                        </label>
+                    </div>
+                    <button class="btn btn-info btn-lg" ng-click="login()" ng-disabled="entrar.$invalid">Autenticar</button>
+                    <button class="btn btn-default btn-lg pull-right" ng-disabled="entrar.$invalid">Esqueci a senha</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+<footer>
+    <div class="copy text-center">
+        Copyright 2013 &copy; - <a href="http://tecla.me/siges">SiGeS - Sistema de Gestão Escolar</a>
+    </div>
+</footer>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/respond.min.js"></script>
+<script type="text/javascript" src="js/html5shiv.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootbox.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/md5-service.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
+<script type="text/javascript" src="//cdn.firebase.com/libs/angularfire/0.3.0/angularfire.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="app/controllers.js"></script>
+<script type="text/javascript" src="app/directives.js"></script>
+<script type="text/javascript" src="app/factories.js"></script>
+<script type="text/javascript" src="app/filters.js"></script>
+<script type="text/javascript" src="app/services.js"></script>
 </body>
 </html>
