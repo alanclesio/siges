@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <form name="entrar">
+            <h2 class="form-signin-heading">Autentique-se</h2>
+
+            <div class="form-group">
+                <input name="email" type="email" class="form-control" placeholder="Seu e-mail" autofocus=""
+                       ng-model="usuario.email" required>
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" placeholder="Sua senha"
+                       ng-model="usuario.senha" required>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="usuario.lembrar"> Lembrar minha senha
+                </label>
+            </div>
+            <button class="btn btn-info btn-lg" ng-click="login()" ng-disabled="entrar.$invalid">Autenticar
+            </button>
+            <button class="btn btn-default btn-lg pull-right" ng-disabled="entrar.$invalid">Esqueci a senha
+            </button>
+            <br/>
+            <br/>
+            <a href="#primeiro-acesso" class="btn btn-default btn-block">Primeiro Acesso</a>
+        </form>
+    </div>
+</div>

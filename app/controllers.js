@@ -113,7 +113,7 @@ angular.module('siges.controllers', []).
     controller('PerfilCtrl', ['$scope', function ($scope) {
     }]).
     // controle responsável pela autenticação de usuários
-    controller('EntrarCtrl', [
+    controller('LoginCtrl', [
         '$scope',
         'Usuarios',
         'Autenticacao',
@@ -147,7 +147,7 @@ angular.module('siges.controllers', []).
                                     $scope.usuarioLogado = usuario;
                                 }
                             });
-                            if ($location.$$path == '/entrar') {
+                            if ($location.$$path == '/login') {
                                 $location.path('/');
                             }
                         }
