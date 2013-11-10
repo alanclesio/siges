@@ -41,7 +41,7 @@
                         </div>
                         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown"  ng-show="usuarioLogado" style="display: none;">
+                                <li class="dropdown"  ng-show="!!usuarioLogado" style="display: none;">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                             class="icon-comments"></i>
                                         Bate-papos <span class="label label-success">15</span> <b class="caret"></b></a>
@@ -79,11 +79,11 @@
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-show="usuarioLogado" style="display: none;">
+                                <li class="dropdown" ng-show="!!usuarioLogado" style="display: none;">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Minha conta <b
                                             class="caret"></b></a>
                                     <ul class="dropdown-menu animated">
-                                        <li><a href="#/perfil">Perfil</a></li>
+                                        <li><a href="#/perfil/{{usuarioLogado.$id}}">Perfil</a></li>
                                         <li><a href="#" ng-click="logout()">Sair</a></li>
                                     </ul>
                                 </li>
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="sidebar-dropdown"><a href="#">MENU</a></div>
             <div class="row">
-                <div class="sidey col-md-2" ng-show="usuarioLogado" style="display: none;">
+                <div class="sidey col-md-2" ng-show="!!usuarioLogado" style="display: none;">
                     <div class="side-cont">
                         <ul class="nav">
                             <li class="current"><a href="#"><i class="icon-home"></i> Painel</a></li>
@@ -123,7 +123,7 @@
                         </ul>
                     </div>
                 </div>
-                <div ng-view></div>
+                <div ng-view ng-class="{'col-md-10': !!usuarioLogado}"></div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -141,7 +141,7 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/angular-ui-mask.js"></script>
 <script type="text/javascript" src="js/md5-service.js"></script>
 <script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
 <script type="text/javascript" src="//cdn.firebase.com/v0/firebase-simple-login.js"></script>
