@@ -57,7 +57,7 @@ angular.module('siges.controllers', []).
                                 $scope.usuario.nome = usuario.nome;
                                 bootbox.alert('Parabéns <strong>' + $scope.usuario.nome + '</strong>, agora efetue seu login!', function () {
                                     $timeout(function () {
-                                        $location.path('/entrar');
+                                        $location.path('/login');
                                     });
                                 });
                             } else {
@@ -110,7 +110,18 @@ angular.module('siges.controllers', []).
                 }
             }
         }]).
-    controller('PerfilCtrl', ['$scope', function ($scope) {
+    controller('PerfilCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
+        angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
+            then(function () {
+                $scope.usuarioLogado = angular.copy($scope.remote);
+                $scope.alterado = function () {
+                    return angular.equals($scope.remote, $scope.usuarioLogado);
+                };
+                $scope.salvar = function () {
+                    $scope.remote = angular.copy($scope.usuarioLogado);
+                    $location.path('/perfil/' + $routeParams.id);
+                };
+            })
     }]).
     // controle responsável pela autenticação de usuários
     controller('LoginCtrl', [
@@ -121,7 +132,7 @@ angular.module('siges.controllers', []).
         '$location',
         '$timeout', function ($scope, Usuarios, Autenticacao, $rootScope, $location, $timeout) {
             if ($scope.usuarioLogado) {
-                if ($location.$$path == '/entrar') {
+                if ($location.$$path == '/login') {
                     $location.path('/');
                 }
             }
@@ -159,5 +170,12 @@ angular.module('siges.controllers', []).
             });
             $rootScope.$on("loggedout", function (event) {
                 $scope.usuarioLogado = null;
+                $scope.remote = null;
             });
+            $rootScope.$on("$locationChangeStart", function (event, next, current) {
+                if (!$scope.usuarioLogado) {
+                    $location.path('/login')
+                }
+            });
+
         }]);
