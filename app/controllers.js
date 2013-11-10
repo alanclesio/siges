@@ -37,7 +37,12 @@ angular.module('siges.controllers', []).
             };
         }]).
     controller('UsuariosEditarCtrl').
-    controller('UsuariosListarCtrl').
+    controller('UsuariosListarCtrl', [
+        '$scope',
+        'Usuarios',
+        function ($scope, Usuarios) {
+        $scope.usuarios = Usuarios;
+    }]).
     controller('PrimeiroAcessoCtrl', [
         '$scope',
         '$timeout',
@@ -111,7 +116,7 @@ angular.module('siges.controllers', []).
             }
         }]).
     controller('PerfilCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
-        if($scope.usuarioLogado){
+        if ($scope.usuarioLogado) {
             angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
                 then(function () {
                     $scope.usuarioLogado = angular.copy($scope.remote);
@@ -174,12 +179,4 @@ angular.module('siges.controllers', []).
                 $scope.usuarioLogado = null;
                 $scope.remote = null;
             });
-            $rootScope.$on("$locationChangeStart", function (event, next, current) {
-                if ($location.$$path != '/primeiro-acesso') {
-                    if (!$scope.usuarioLogado) {
-                        $location.path('/login')
-                    }
-                }
-            });
-
         }]);
