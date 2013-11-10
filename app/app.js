@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('siges', [
+        'ngCookies',
         'ui.mask',
         'md5',
         'firebase',
