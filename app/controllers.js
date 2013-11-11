@@ -27,7 +27,7 @@ angular.module('siges.controllers', []).
                         });
                     });
                 } else {
-                    bootbox.alert('Atenção, o usuário <strong>' + $scope.usuario.nome + '</strong> não pôde ser cadastrado pois já há um cadastro com este e-mail!', function () {
+                    bootbox.alert('Atenção, o email <strong>' + $scope.usuario.email + '</strong> não pôde ser cadastrado pois já há um cadastro em uso!', function () {
                         $timeout(function () {
                             $location.path('/usuarios/criar');
                             $scope.usuario = null;
