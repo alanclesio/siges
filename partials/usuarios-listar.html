@@ -17,6 +17,7 @@
                     <th>E-mail</th>
                     <th>Celular</th>
                     <th>Turma</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,18 +26,26 @@
                     <td>{{usuario.email}}</td>
                     <td>{{usuario.celular || '--'}}</td>
                     <td>{{usuario.turma || '--'}}</td>
+                    <td style="text-align: center;">
+                        <a href="#/usuarios/editar/{{usuario.$id}}" class="btn btn-info btn-xs" title="Editar {{usuario.nome}}"><i class="icon-pencil"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-            <ul class="pagination pull-right">
-                <li><a href="#">«</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#/usuarios/criar" class="btn btn-info">Adicionar</a>
+                    <ul class="pagination pull-right">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -36,13 +36,36 @@ angular.module('siges.controllers', []).
                 }
             };
         }]).
-    controller('UsuariosEditarCtrl').
+    controller('UsuariosEditarCtrl', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'angularFire',
+        'ProjetoFireBaseUrl',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
+            angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
+                then(function () {
+                    $scope.usuario = angular.copy($scope.remote);
+                    $scope.usuario.$id = $routeParams.id;
+                    $scope.alterado = function () {
+                        return angular.equals($scope.remote, $scope.usuario);
+                    }
+                    $scope.apagar = function () {
+                        $scope.remote = null;
+                        $location.path('/usuarios');
+                    };
+                    $scope.salvar = function () {
+                        $scope.remote = angular.copy($scope.usuario);
+                        $location.path('/usuarios');
+                    };
+                })
+        }]).
     controller('UsuariosListarCtrl', [
         '$scope',
         'Usuarios',
         function ($scope, Usuarios) {
-        $scope.usuarios = Usuarios;
-    }]).
+            $scope.usuarios = Usuarios;
+        }]).
     controller('PrimeiroAcessoCtrl', [
         '$scope',
         '$timeout',
