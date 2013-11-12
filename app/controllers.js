@@ -106,6 +106,43 @@ angular.module('siges.controllers', []).
     .controller('DisciplinasListarCtrl', ['$scope', 'Disciplinas', function($scope, Disciplinas) {
         $scope.disciplinas = Disciplinas;
     }]).
+    // controles responsáveis por manter turmas
+    // Controles turmas
+    controller('TurmasCriarCtrl', ['$scope', '$location', '$timeout', 'Turmas', 'Disciplinas', function($scope, $location, $timeout, Turmas, Disciplinas) {
+        $scope.disciplinas = Disciplinas;
+        $scope.salvar = function() {
+            Turmas.add($scope.turma, function() {
+                bootbox.alert('A turma <strong>' + $scope.turma.nome + '</strong> foi salva com sucesso!', function() {
+                    $timeout(function() {
+                        $location.path('/turmas');
+                    });
+                });
+            });
+        }
+    }])
+    .controller('TurmasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
+        $scope.disciplinas = Disciplinas;
+        angularFire(ProjetoFireBaseUrl.child('turmas').child($routeParams.id), $scope, 'remote', {}).
+            then(function() {
+                $scope.turma = angular.copy($scope.remote);
+                $scope.turma.$id = $routeParams.id;
+                $scope.alterado = function() {
+                    return angular.equals($scope.remote, $scope.turma);
+                }
+                $scope.apagar = function() {
+                    $scope.remote = null;
+                    $location.path('/turmas');
+                };
+                $scope.salvar = function() {
+                    $scope.remote = angular.copy($scope.turma);
+                    $location.path('/turmas');
+                };
+            })
+    }])
+    .controller('TurmasListarCtrl', ['$scope', 'Disciplinas', 'Turmas', function($scope, Disciplinas, Turmas) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+    }]).
     // controles responsáveis por manter instituições
     controller('InstituicoesCriarCtrl', ['$scope', '$location', '$timeout', 'Instituicoes', function($scope, $location, $timeout, Instituicoes) {
         $scope.salvar = function() {
