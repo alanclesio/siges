@@ -64,7 +64,15 @@ angular.module('siges.controllers', []).
         '$scope',
         'Usuarios',
         function ($scope, Usuarios) {
-            $scope.usuarios = Usuarios;
+            $scope.paginaAtual = 0;
+            $scope.paginaTamanho = 10;
+            $scope.paginaTotal = function () {
+                return Math.ceil($scope.usuarios.length / $scope.paginaTamanho);
+            }
+            $scope.getUsuarios = function (inicio, limit) {
+                return Usuarios;
+            };
+            $scope.usuarios = $scope.getUsuarios();
         }]).
     controller('PrimeiroAcessoCtrl', [
         '$scope',

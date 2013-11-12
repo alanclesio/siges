@@ -6,7 +6,7 @@ angular.module('siges.filters', []).
             return (text).replace(/(\r\n|\n\r|\r|\n)/g, '<br />');
         }
     })
-    .filter('truncate', function () {
+    .filter('truncate',function () {
         return function (text, length, end) {
             if (isNaN(length)) {
                 length = 10;
@@ -22,4 +22,10 @@ angular.module('siges.filters', []).
             }
 
         };
+    }).
+    filter('iniciaEm', function () {
+        return function (entrada, inicio) {
+            inicio = +inicio; // parse int
+            return entrada.slice(inicio);
+        }
     });

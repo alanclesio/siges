@@ -21,13 +21,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="usuario in usuarios">
+                <tr ng-repeat="usuario in usuarios | orderBy:['nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{usuario.nome}}</td>
                     <td>{{usuario.email}}</td>
                     <td>{{usuario.celular || '--'}}</td>
                     <td>{{usuario.turma || '--'}}</td>
                     <td style="text-align: center;">
-                        <a href="#/usuarios/editar/{{usuario.$id}}" class="btn btn-info btn-xs" title="Editar {{usuario.nome}}"><i class="icon-pencil"></i></a>
+                        <a href="#/usuarios/editar/{{usuario.$id}}" class="btn btn-info btn-xs"
+                           title="Editar {{usuario.nome}}"><i class="icon-pencil"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -36,13 +37,13 @@
                 <div class="col-md-12">
                     <a href="#/usuarios/criar" class="btn btn-info">Adicionar</a>
                     <ul class="pagination pull-right">
-                        <li><a href="#">«</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
+                        <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                            Anterior
+                        </button>
+                        {{paginaAtual+1}} / {{paginaTotal()}}
+                        <button class="btn btn-default" ng-disabled="paginaAtual >= usuarios.length/paginaTamanho - 1"
+                                ng-click="paginaAtual=paginaAtual+1">Próximo
+                        </button>
                     </ul>
                 </div>
             </div>

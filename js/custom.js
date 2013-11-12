@@ -15,3 +15,28 @@ $(document).ready(function () {
         }
     });
 });
+
+/* Scroll to Top starts */
+
+$(".totop").hide();
+
+$(function(){
+    $(window).scroll(function(){
+        if ($(this).scrollTop()>300)
+        {
+            $('.totop').slideDown();
+        }
+        else
+        {
+            $('.totop').slideUp();
+        }
+    });
+
+    $('.totop a').click(function (e) {
+        e.preventDefault();
+        $('body,html').animate({scrollTop: 0}, 500);
+    });
+
+});
+
+/* Scroll to top ends */
