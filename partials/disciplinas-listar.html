@@ -1,0 +1,41 @@
+<div ng-show="usuarioLogado.admin" style="display: none;">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Usuários
+            <small>Cadastro de usuários</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem dos usuários cadastrados</h3>
+        </div>
+        <div class="awidget-body">
+        <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Informações</th>
+                    <th style="width: 50px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="disciplina in disciplinas">
+                    <td>{{ disciplina.nome }}</td>
+                    <td>{{ disciplina.informacoes|truncate:55 }}</td>
+                    <td class="text-center">
+                        <a href="#/disciplinas/editar/{{ disciplina.$id }}" class="btn btn-xs btn-info"
+                           title="Editar informações da disciplina {{ disciplina.nome }}">
+                            <i class="icon-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr ng-hide="disciplinas.length">
+                    <td colspan="3">Não há Registros</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="form-group pull-right">
+                <a href="#/disciplinas/criar" class="btn btn-info">Adicionar</a>
+            </div>
+        </div>
+    </div>
+</div>

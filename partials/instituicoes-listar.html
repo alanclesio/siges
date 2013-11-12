@@ -1,0 +1,45 @@
+<div ng-show="usuarioLogado.admin" style="display: none;">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Instituições
+            <small>Cadastro de instituições</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem das instituições cadastradas</h3>
+        </div>
+        <div class="awidget-body">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Instituição</th>
+                    <th>Descrição</th>
+                    <th style="width: 60px; text-align: center;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="instituicao in instituicoes">
+                    <td>{{ instituicao.nome }}</td>
+                    <td>{{ instituicao.informacoes }}</td>
+                    <td class="text-center"><a href="{{ instituicao.site }}" target="_blank"
+                                               class="btn btn-xs btn-info"
+                                               title="Ir para o site da {{ instituicao.nome }}"
+                                               ng-class="{disabled: !instituicao.site, 'btn-primary': instituicao.site}">
+                        <i class="icon-windows"></i></a>
+                        <a href="#/instituicoes/editar/{{ instituicao.$id }}" class="btn btn-xs btn-info"
+                           title="Editar informações da {{ instituicao.nome }}">
+                            <i class="icon-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr ng-hide="instituicoes.length">
+                    <td colspan="3">Não há Registros</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="form-group pull-right">
+                <a href="#/instituicoes/criar" class="btn btn-info">Adicionar</a>
+            </div>
+        </div>
+    </div>
+</div>

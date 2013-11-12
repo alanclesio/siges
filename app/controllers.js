@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('siges.controllers', []).
-    // controle responsável por manter usuários
+    // controles responsáveis por manter usuários
     controller('UsuariosCriarCtrl', [
         '$scope',
         '$location',
@@ -64,16 +64,88 @@ angular.module('siges.controllers', []).
         '$scope',
         'Usuarios',
         function ($scope, Usuarios) {
+            $scope.usuarios = Usuarios;
             $scope.paginaAtual = 0;
             $scope.paginaTamanho = 10;
             $scope.paginaTotal = function () {
                 return Math.ceil($scope.usuarios.length / $scope.paginaTamanho);
             }
-            $scope.getUsuarios = function (inicio, limit) {
-                return Usuarios;
-            };
-            $scope.usuarios = $scope.getUsuarios();
         }]).
+    // controles responsáveis por manter disciplinas
+    controller('DisciplinasCriarCtrl', ['$scope', '$location', '$timeout', 'Disciplinas', 'Instituicoes', function($scope, $location, $timeout, Disciplinas, Instituicoes) {
+        $scope.instituicoes = Instituicoes;
+        $scope.salvar = function() {
+            Disciplinas.add($scope.disciplina, function() {
+                bootbox.alert('A disciplina <strong>' + $scope.disciplina.nome + '</strong> foi salva com sucesso!', function() {
+                    $timeout(function() {
+                        $location.path('/disciplinas');
+                    });
+                });
+            });
+        }
+    }])
+    .controller('DisciplinasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Instituicoes', function($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Instituicoes) {
+        $scope.instituicoes = Instituicoes;
+        angularFire(ProjetoFireBaseUrl.child('disciplinas').child($routeParams.id), $scope, 'remote', {}).
+            then(function() {
+                $scope.disciplina = angular.copy($scope.remote);
+                $scope.disciplina.$id = $routeParams.id;
+                $scope.alterado = function() {
+                    return angular.equals($scope.remote, $scope.disciplina);
+                }
+                $scope.apagar = function() {
+                    $scope.remote = null;
+                    $location.path('/disciplinas');
+                };
+                $scope.salvar = function() {
+                    $scope.remote = angular.copy($scope.disciplina);
+                    $location.path('/disciplinas');
+                };
+            })
+    }])
+    .controller('DisciplinasListarCtrl', ['$scope', 'Disciplinas', function($scope, Disciplinas) {
+        $scope.disciplinas = Disciplinas;
+    }]).
+    // controles responsáveis por manter instituições
+    controller('InstituicoesCriarCtrl', ['$scope', '$location', '$timeout', 'Instituicoes', function($scope, $location, $timeout, Instituicoes) {
+        $scope.salvar = function() {
+            Instituicoes.add($scope.instituicao, function() {
+                bootbox.alert('A instituição <strong>' + $scope.instituicao.nome + '</strong> foi salva com sucesso!', function() {
+                    $timeout(function() {
+                        $location.path('/instituicoes');
+                    });
+                });
+            });
+        }
+    }]).
+    controller('InstituicoesEditarCtrl', ['$scope', '$filter', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function($scope, $filter, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
+        angularFire(ProjetoFireBaseUrl.child('instituicoes').child($routeParams.id), $scope, 'remote', {}).
+            then(function() {
+                $scope.disciplinas = Disciplinas;
+                $scope.instituicao = angular.copy($scope.remote);
+                $scope.instituicao.$id = $routeParams.id;
+                $scope.alterado = function() {
+                    return angular.equals($scope.remote, $scope.instituicao);
+                }
+                $scope.apagar = function() {
+                    var temFillhos = $filter('hasChild')($scope.disciplinas, $scope.instituicao.$id, 'instituicaoId');
+                    if(temFillhos){
+                        bootbox.alert('Não é possível excluir a instituiçao ' + $scope.instituicao.nome + ', por que há registros dependentes!');
+                    } else {
+                        $scope.remote = null;
+                        $location.path('/instituicoes');
+                    }
+                };
+                $scope.salvar = function() {
+                    $scope.remote = angular.copy($scope.instituicao);
+                    $location.path('/instituicoes');
+                };
+            })
+    }]).
+    controller('InstituicoesListarCtrl', ['$scope', 'Instituicoes', function($scope, Instituicoes) {
+        $scope.instituicoes = Instituicoes;
+    }]).
+    // controle primeiro acesso do usuário
     controller('PrimeiroAcessoCtrl', [
         '$scope',
         '$timeout',
@@ -146,6 +218,7 @@ angular.module('siges.controllers', []).
                 }
             }
         }]).
+    // controle do perfil de usuário
     controller('PerfilCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
         if ($scope.usuarioLogado) {
             angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).

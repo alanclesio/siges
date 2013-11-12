@@ -28,4 +28,14 @@ angular.module('siges.filters', []).
             inicio = +inicio; // parse int
             return entrada.slice(inicio);
         }
+    }).
+    filter('hasChild', function () {
+        return function(objeto, id, atributo) {
+            for (var i = 0; i < objeto.length; i++) {
+                if (objeto[i][atributo] == id) {
+                    return true;
+                }
+            }
+            return false;
+        }
     });

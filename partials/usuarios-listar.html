@@ -10,22 +10,26 @@
             <h3>Listagem dos usuários cadastrados</h3>
         </div>
         <div class="awidget-body">
-            <table class="table table-hover table-bordered ">
+            <table class="table table-bordered table-hover table-condensed table-striped">
                 <thead>
                 <tr>
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Celular</th>
-                    <th>Turma</th>
-                    <th>Ações</th>
+                    <th style="width: 58px;">Turma</th>
+                    <th style="width: 53px;">Editar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="usuario in usuarios | orderBy:['nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{usuario.nome}}</td>
                     <td>{{usuario.email}}</td>
-                    <td>{{usuario.celular || '--'}}</td>
-                    <td>{{usuario.turma || '--'}}</td>
+                    <td style="width: 95px;">
+                        {{usuario.celular || '--'}}
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="#/turma/editar/{{usuario.turma.id}}" class="btn btn-info btn-xs">{{usuario.turma || '--'}}</a>
+                    </td>
                     <td style="text-align: center;">
                         <a href="#/usuarios/editar/{{usuario.$id}}" class="btn btn-info btn-xs"
                            title="Editar {{usuario.nome}}"><i class="icon-pencil"></i></a>

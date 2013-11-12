@@ -1,0 +1,49 @@
+<div ng-show="usuarioLogado.admin" style="display: none;">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Usuários
+            <small>Cadastro de usuários</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem dos usuários cadastrados</h3>
+        </div>
+        <div class="awidget-body">
+            <form name="criarDisciplina" role="form">
+                <div class="form-group" ng-class="{'has-error': criarDisciplina.instituicao.$invalid}">
+                    <label class="control-label">Instituição</label>
+                    <select name="instituicao" class="form-control" ng-model="disciplina.instituicaoId"
+                            ng-options="instituicao.$id as instituicao.nome for instituicao in instituicoes"
+                            required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="criarDisciplina.instituicao.$error.required"
+                          class="help-block">Selecione um item</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarDisciplina.nome.$invalid}">
+                    <label class="control-label">Disciplina</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Nome da disciplina"
+                           ng-minlength="3" ng-model="disciplina.nome" required>
+                    <span ng-show="criarDisciplina.nome.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    <span ng-show="criarDisciplina.nome.$error.minlength"
+                          class="help-block">Pelo menos três caracteres</span>
+                </div>
+                <div class="form-group">
+                    <label>Informações Adicionais</label>
+                    <input type="text" class="form-control"
+                           placeholder="Informações adicionais" ng-model="disciplina.informacoes">
+                </div>
+                <div class="form-group pull-right">
+                    <a href="#/disciplinas" class="btn btn-default">Cancelar</a>
+                    <a class="btn btn-danger" ng-click="apagar()" ng-show="disciplina.$id">Remover</a>
+                    <button type="submit" class="btn btn-info" ng-click="salvar()"
+                            ng-disabled="criarDisciplina.$invalid || alterado()">
+                        <span ng-show="disciplina.$id">Alterar</span>
+                        <span ng-show="!disciplina.$id">Cadastrar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
