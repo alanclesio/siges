@@ -12,26 +12,43 @@ angular.module('siges', [
         'siges.controllers'
     ]).
     config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.
-            when('/', {templateUrl: 'partials/home.html'}).
-            when('/turmas/criar', {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl'}).
-            when('/turmas/editar/:id', {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl'}).
-            when('/turmas', {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl'}).
-            when('/disciplinas/criar', {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasCriarCtrl'}).
-            when('/disciplinas/editar/:id', {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasEditarCtrl'}).
-            when('/disciplinas', {templateUrl: 'partials/disciplinas-listar.html', controller: 'DisciplinasListarCtrl'}).
-            when('/instituicoes/criar', {templateUrl: 'partials/instituicoes-detalhes.html', controller: 'InstituicoesCriarCtrl'}).
-            when('/instituicoes/editar/:id', {templateUrl: 'partials/instituicoes-detalhes.html', controller: 'InstituicoesEditarCtrl'}).
-            when('/instituicoes', {templateUrl: 'partials/instituicoes-listar.html', controller: 'InstituicoesListarCtrl'}).
-            when('/usuarios/criar', {templateUrl: 'partials/usuarios-detalhes.html', controller: 'UsuariosCriarCtrl'}).
-            when('/usuarios/editar/:id', {templateUrl: 'partials/usuarios-detalhes.html', controller: 'UsuariosEditarCtrl'}).
-            when('/usuarios', {templateUrl: 'partials/usuarios-listar.html', controller: 'UsuariosListarCtrl'}).
-            when('/primeiro-acesso', {templateUrl: 'partials/primeiro-acesso.html', controller: 'PrimeiroAcessoCtrl'}).
-            when('/perfil/:id', {templateUrl: 'partials/perfil.html', controller: 'PerfilCtrl'}).
-            when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'}).
-            when('/404', {templateUrl: 'partials/404.html'}).
-            otherwise({redirectTo: '/404'});
-    }]);
+        window.routes = {
+            "/": {templateUrl: 'partials/home.html', requireLogin: false},
+            "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},
+            "/turmas/editar/:id": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl', requireLogin: true},
+            "/turmas": {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl', requireLogin: true},
+            "/disciplinas/criar": {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasCriarCtrl', requireLogin: true},
+            "/disciplinas/editar/:id": {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasEditarCtrl', requireLogin: true},
+            "/disciplinas": {templateUrl: 'partials/disciplinas-listar.html', controller: 'DisciplinasListarCtrl', requireLogin: true},
+            "/instituicoes/criar": {templateUrl: 'partials/instituicoes-detalhes.html', controller: 'InstituicoesCriarCtrl', requireLogin: true},
+            "/instituicoes/editar/:id": {templateUrl: 'partials/instituicoes-detalhes.html', controller: 'InstituicoesEditarCtrl', requireLogin: true},
+            "/instituicoes": {templateUrl: 'partials/instituicoes-listar.html', controller: 'InstituicoesListarCtrl', requireLogin: true},
+            "/usuarios/criar": {templateUrl: 'partials/usuarios-detalhes.html', controller: 'UsuariosCriarCtrl', requireLogin: true},
+            "/usuarios/editar/:id": {templateUrl: 'partials/usuarios-detalhes.html', controller: 'UsuariosEditarCtrl', requireLogin: true},
+            "/usuarios": {templateUrl: 'partials/usuarios-listar.html', controller: 'UsuariosListarCtrl', requireLogin: true},
+            "/primeiro-acesso": {templateUrl: 'partials/primeiro-acesso.html', controller: 'PrimeiroAcessoCtrl', requireLogin: false},
+            "/perfil/:id": {templateUrl: 'partials/perfil.html', controller: 'PerfilCtrl', requireLogin: true},
+            "/login": {templateUrl: 'partials/login.html', controller: 'LoginCtrl', requireLogin: false},
+            "/404": {templateUrl: 'partials/404.html', requireLogin: false}
+        }
+        for (var path in window.routes) {
+            $routeProvider.when(path, window.routes[path]);
+        }
+        $routeProvider.otherwise({redirectTo: '/404'});
+    }]).run(function ($rootScope, $location) {
+        $rootScope.$on("$locationChangeStart", function (event, next, current) {
+            console.info('Evento: ', event);
+            console.info('Próxima: ', next);
+            console.info('Atual: ', current);
+            for (var i in window.routes) {
+                if (next.indexOf(i) != -1) {
+                    if (window.routes[i].requireLogin) {
+                        console.info('Redirecionou!');
+//                        event.preventDefault();
+//                        $location.path('/login');
+                    }
+                }
+            }
+        });
 
-// configuração dos vendors
-bootbox.setDefaults({locale: "br", animate: false});
+    });

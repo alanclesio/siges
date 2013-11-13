@@ -1,1 +1,58 @@
-turmas detalhes
+<div ng-show="usuarioLogado.admin" style="display: none;">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Cadastro de Turmas</h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem das turmas cadastradas</h3>
+        </div>
+        <div class="awidget-body">
+            <form name="criarTurma" role="form">
+                <div class="form-group" ng-class="{'has-error': criarTurma.disciplina.$invalid}">
+                    <label class="control-label">Disciplina</label>
+                    <select name="disciplina" class="form-control" ng-model="turma.disciplinaId"
+                            ng-options="disciplina.$id as disciplina.nome for disciplina in disciplinas"
+                            required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="criarTurma.instituicao.$error.required" class="help-block">Selecione um item</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarTurma.nome.$invalid}">
+                    <label class="control-label">Turma</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Nome da turma"
+                           ng-minlength="3" ng-model="turma.nome" required>
+                    <span ng-show="criarTurma.nome.$error.required"
+                          class="help-block">Campo de preenchimento necessário</span>
+                    <span ng-show="criarTurma.nome.$error.minlength"
+                          class="help-block">Pelo menos três caracteres</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarTurma.horario.$invalid}">
+                    <label class="control-label">Horário</label>
+                    <select name="horario" class="form-control" ng-model="turma.horario" required>
+                        <option value="">Selecione</option>
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                        <option value="Diurno">Diurno</option>
+                        <option value="Noturno">Noturno</option>
+                    </select>
+                    <span ng-show="criarTurma.horario.$error.required" class="help-block">Selecione um item</span>
+                </div>
+                <div class="form-group">
+                    <label>Informações Adicionais</label>
+                    <input type="text" class="form-control"
+                           placeholder="Informações adicionais" ng-model="turma.informacoes">
+                </div>
+                <div class="form-group pull-right">
+                    <a href="#/turmas" class="btn btn-default">Cancelar</a>
+                    <a class="btn btn-danger" ng-click="apagar()" ng-show="turma.$id">Remover</a>
+                    <button type="submit" class="btn btn-info" ng-click="salvar()"
+                            ng-disabled="criarTurma.$invalid || alterado()">
+                        <span ng-show="turma.$id">Alterar</span>
+                        <span ng-show="!turma.$id">Cadastrar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

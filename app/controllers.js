@@ -72,114 +72,114 @@ angular.module('siges.controllers', []).
             }
         }]).
     // controles responsáveis por manter disciplinas
-    controller('DisciplinasCriarCtrl', ['$scope', '$location', '$timeout', 'Disciplinas', 'Instituicoes', function($scope, $location, $timeout, Disciplinas, Instituicoes) {
+    controller('DisciplinasCriarCtrl', ['$scope', '$location', '$timeout', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Disciplinas, Instituicoes) {
         $scope.instituicoes = Instituicoes;
-        $scope.salvar = function() {
-            Disciplinas.add($scope.disciplina, function() {
-                bootbox.alert('A disciplina <strong>' + $scope.disciplina.nome + '</strong> foi salva com sucesso!', function() {
-                    $timeout(function() {
+        $scope.salvar = function () {
+            Disciplinas.add($scope.disciplina, function () {
+                bootbox.alert('A disciplina <strong>' + $scope.disciplina.nome + '</strong> foi salva com sucesso!', function () {
+                    $timeout(function () {
                         $location.path('/disciplinas');
                     });
                 });
             });
         }
     }])
-    .controller('DisciplinasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Instituicoes', function($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Instituicoes) {
+    .controller('DisciplinasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Instituicoes', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Instituicoes) {
         $scope.instituicoes = Instituicoes;
         angularFire(ProjetoFireBaseUrl.child('disciplinas').child($routeParams.id), $scope, 'remote', {}).
-            then(function() {
+            then(function () {
                 $scope.disciplina = angular.copy($scope.remote);
                 $scope.disciplina.$id = $routeParams.id;
-                $scope.alterado = function() {
+                $scope.alterado = function () {
                     return angular.equals($scope.remote, $scope.disciplina);
                 }
-                $scope.apagar = function() {
+                $scope.apagar = function () {
                     $scope.remote = null;
                     $location.path('/disciplinas');
                 };
-                $scope.salvar = function() {
+                $scope.salvar = function () {
                     $scope.remote = angular.copy($scope.disciplina);
                     $location.path('/disciplinas');
                 };
             })
     }])
-    .controller('DisciplinasListarCtrl', ['$scope', 'Disciplinas', function($scope, Disciplinas) {
+    .controller('DisciplinasListarCtrl', ['$scope', 'Disciplinas', function ($scope, Disciplinas) {
         $scope.disciplinas = Disciplinas;
     }]).
     // controles responsáveis por manter turmas
     // Controles turmas
-    controller('TurmasCriarCtrl', ['$scope', '$location', '$timeout', 'Turmas', 'Disciplinas', function($scope, $location, $timeout, Turmas, Disciplinas) {
+    controller('TurmasCriarCtrl', ['$scope', '$location', '$timeout', 'Turmas', 'Disciplinas', function ($scope, $location, $timeout, Turmas, Disciplinas) {
         $scope.disciplinas = Disciplinas;
-        $scope.salvar = function() {
-            Turmas.add($scope.turma, function() {
-                bootbox.alert('A turma <strong>' + $scope.turma.nome + '</strong> foi salva com sucesso!', function() {
-                    $timeout(function() {
+        $scope.salvar = function () {
+            Turmas.add($scope.turma, function () {
+                bootbox.alert('A turma <strong>' + $scope.turma.nome + '</strong> foi salva com sucesso!', function () {
+                    $timeout(function () {
                         $location.path('/turmas');
                     });
                 });
             });
         }
-    }])
-    .controller('TurmasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
+    }]).
+    controller('TurmasEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
         $scope.disciplinas = Disciplinas;
         angularFire(ProjetoFireBaseUrl.child('turmas').child($routeParams.id), $scope, 'remote', {}).
-            then(function() {
+            then(function () {
                 $scope.turma = angular.copy($scope.remote);
                 $scope.turma.$id = $routeParams.id;
-                $scope.alterado = function() {
+                $scope.alterado = function () {
                     return angular.equals($scope.remote, $scope.turma);
                 }
-                $scope.apagar = function() {
+                $scope.apagar = function () {
                     $scope.remote = null;
                     $location.path('/turmas');
                 };
-                $scope.salvar = function() {
+                $scope.salvar = function () {
                     $scope.remote = angular.copy($scope.turma);
                     $location.path('/turmas');
                 };
             })
-    }])
-    .controller('TurmasListarCtrl', ['$scope', 'Disciplinas', 'Turmas', function($scope, Disciplinas, Turmas) {
+    }]).
+    controller('TurmasListarCtrl', ['$scope', 'Disciplinas', 'Turmas', function ($scope, Disciplinas, Turmas) {
         $scope.turmas = Turmas;
         $scope.disciplinas = Disciplinas;
     }]).
     // controles responsáveis por manter instituições
-    controller('InstituicoesCriarCtrl', ['$scope', '$location', '$timeout', 'Instituicoes', function($scope, $location, $timeout, Instituicoes) {
-        $scope.salvar = function() {
-            Instituicoes.add($scope.instituicao, function() {
-                bootbox.alert('A instituição <strong>' + $scope.instituicao.nome + '</strong> foi salva com sucesso!', function() {
-                    $timeout(function() {
+    controller('InstituicoesCriarCtrl', ['$scope', '$location', '$timeout', 'Instituicoes', function ($scope, $location, $timeout, Instituicoes) {
+        $scope.salvar = function () {
+            Instituicoes.add($scope.instituicao, function () {
+                bootbox.alert('A instituição <strong>' + $scope.instituicao.nome + '</strong> foi salva com sucesso!', function () {
+                    $timeout(function () {
                         $location.path('/instituicoes');
                     });
                 });
             });
         }
     }]).
-    controller('InstituicoesEditarCtrl', ['$scope', '$filter', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function($scope, $filter, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
+    controller('InstituicoesEditarCtrl', ['$scope', '$filter', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Disciplinas', function ($scope, $filter, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Disciplinas) {
         angularFire(ProjetoFireBaseUrl.child('instituicoes').child($routeParams.id), $scope, 'remote', {}).
-            then(function() {
+            then(function () {
                 $scope.disciplinas = Disciplinas;
                 $scope.instituicao = angular.copy($scope.remote);
                 $scope.instituicao.$id = $routeParams.id;
-                $scope.alterado = function() {
+                $scope.alterado = function () {
                     return angular.equals($scope.remote, $scope.instituicao);
                 }
-                $scope.apagar = function() {
+                $scope.apagar = function () {
                     var temFillhos = $filter('hasChild')($scope.disciplinas, $scope.instituicao.$id, 'instituicaoId');
-                    if(temFillhos){
+                    if (temFillhos) {
                         bootbox.alert('Não é possível excluir a instituiçao ' + $scope.instituicao.nome + ', por que há registros dependentes!');
                     } else {
                         $scope.remote = null;
                         $location.path('/instituicoes');
                     }
                 };
-                $scope.salvar = function() {
+                $scope.salvar = function () {
                     $scope.remote = angular.copy($scope.instituicao);
                     $location.path('/instituicoes');
                 };
             })
     }]).
-    controller('InstituicoesListarCtrl', ['$scope', 'Instituicoes', function($scope, Instituicoes) {
+    controller('InstituicoesListarCtrl', ['$scope', 'Instituicoes', function ($scope, Instituicoes) {
         $scope.instituicoes = Instituicoes;
     }]).
     // controle primeiro acesso do usuário
@@ -257,28 +257,27 @@ angular.module('siges.controllers', []).
         }]).
     // controle do perfil de usuário
     controller('PerfilCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
-        if ($scope.usuarioLogado) {
-            angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
-                then(function () {
-                    $scope.usuarioLogado = angular.copy($scope.remote);
-                    $scope.alterado = function () {
-                        return angular.equals($scope.remote, $scope.usuarioLogado);
-                    };
-                    $scope.salvar = function () {
-                        $scope.remote = angular.copy($scope.usuarioLogado);
-                        $location.path('/perfil/' + $routeParams.id);
-                    };
-                })
-        }
+        angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
+            then(function () {
+                $scope.usuarioLogado = angular.copy($scope.remote);
+                $scope.alterado = function () {
+                    return angular.equals($scope.remote, $scope.usuarioLogado);
+                };
+                $scope.salvar = function () {
+                    $scope.remote = angular.copy($scope.usuarioLogado);
+                    $location.path('/perfil/' + $routeParams.id);
+                };
+            })
     }]).
     // controle responsável pela autenticação de usuários
     controller('LoginCtrl', [
         '$scope',
         'Usuarios',
         'Autenticacao',
+        'angularFire',
         '$rootScope',
         '$location',
-        '$timeout', '$cookies', function ($scope, Usuarios, Autenticacao, $rootScope, $location, $timeout, $cookies) {
+        '$timeout', '$cookies', function ($scope, Usuarios, Autenticacao, angularFire, $rootScope, $location, $timeout, $cookies) {
             if ($scope.usuarioLogado) {
                 if ($location.$$path == '/login') {
                     $location.path('/');
@@ -297,24 +296,19 @@ angular.module('siges.controllers', []).
                 $scope.usuarioLogado = null;
             };
             $rootScope.$on("loggedin", function (event, user) {
-                var stop;
-                stop = $timeout(function () {
-                    if (Usuarios) { // verificar o logon de usuários usando cookie
-                        if (!$scope.usuarioLogado) {
-                            angular.forEach(Usuarios, function (usuario, key) {
-                                if (user.md5_hash == usuario.md5_hash) {
-                                    $scope.usuarioLogado = usuario;
-                                }
-                            });
-                            if ($location.$$path == '/login') {
-                                $location.path('/');
-                            }
+                var url = new Firebase('https://siges.firebaseio.com/usuarios');
+                angularFire(url, $scope, 'users', {}).then(function () {
+                    angular.forEach($scope.users, function (usuario, id) {
+                        if (user.md5_hash == usuario.md5_hash) {
+                            $scope.usuarioLogado = usuario;
+                            $scope.usuarioLogado.$id = id;
                         }
-                    } else {
-                        $timeout.cancel(stop);
-                    }
-                    jQuery('.modal').modal('hide');
-                }, 1000);
+                    });
+                });
+                if ($location.$$path == '/login') {
+                    $location.path('/');
+                }
+                jQuery('.modal').modal('hide');
             });
             $rootScope.$on("loggedout", function (event) {
                 $scope.usuarioLogado = null;

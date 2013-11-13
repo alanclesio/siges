@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('siges.services', []).
-    service('Autenticacao', ['$rootScope', '$timeout', '$cookies', function ($rootScope, $timeout, $cookies) {
+    service('Autenticacao', ['$rootScope', 'angularFire', function ($rootScope, angularFire) {
         this.auth = new FirebaseSimpleLogin(new Firebase("https://siges.firebaseio.com"), function (error, user) {
             if (user) {
                 $rootScope.$emit("loggedin", user);

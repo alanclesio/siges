@@ -1,3 +1,6 @@
+// configuração dos vendors
+bootbox.setDefaults({locale: "br", animate: false});
+
 $(document).ready(function () {
     $(".has_submenu > a").click(function (e) {
         e.preventDefault();

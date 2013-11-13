@@ -1,1 +1,50 @@
-turmas listar
+<div ng-show="usuarioLogado.admin" style="display: none;">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Turmas
+            <small>Cadastro de turmas</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem das turmas cadastradas</h3>
+        </div>
+        <div class="awidget-body">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Turma</th>
+                    <th>Disciplina</th>
+                    <th>Informações</th>
+                    <th style="width: 65px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="turma in turmas">
+                    <td>{{ turma.nome }}</td>
+                    <td>
+                        <div ng-repeat="disciplina in disciplinas">
+                            <div ng-if="disciplina.$id == turma.disciplinaId">{{ disciplina.nome }}</div>
+                        </div>
+                    </td>
+                    <td>{{ turma.informacoes }}</td>
+                    <td class="text-center">
+                        <a href="#/turmas/editar/{{ turma.$id }}" class="btn btn-xs btn-info"
+                           title="Editar informações da turma {{ turma.nome }}">
+                            <i class="icon-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr ng-hide="turmas.length">
+                    <td colspan="4">Não há Registros</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="form-group pull-right">
+                <a href="#/turmas/criar" class="btn btn-info">Adicionar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="!usuarioLogado">
+    {{notLoggedIn}}
+</div>
