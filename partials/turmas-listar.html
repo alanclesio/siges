@@ -23,8 +23,8 @@
                 <tr ng-repeat="turma in turmas">
                     <td>{{ turma.nome }}</td>
                     <td>
-                        <div ng-repeat="disciplina in disciplinas">
-                            <div ng-show="disciplina.$id == turma.disciplinaId">{{ disciplina.nome }}</div>
+                        <div ng-repeat="disciplina in disciplinas | filter:{$id:turma.disciplinaId}">
+                            <div>{{ disciplina.nome }}</div>
                         </div>
                     </td>
                     <td>{{ turma.informacoes }}</td>
