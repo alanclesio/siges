@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="instituicao in instituicoes | orderBy:[nome]">
+                <tr ng-repeat="instituicao in instituicoes | orderBy:['nome']">
                     <td>{{ instituicao.nome }}</td>
                     <td>{{ instituicao.informacoes }}</td>
                     <td class="text-center"><a href="{{ instituicao.site }}" target="_blank"

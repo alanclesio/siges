@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="turma in turmas | orderBy:[nome]">
+                <tr ng-repeat="turma in turmas | orderBy:['nome']">
                     <td>{{ turma.nome }}</td>
                     <td>
                         <div ng-repeat="disciplina in disciplinas | filter:{$id:turma.disciplinaId}">
