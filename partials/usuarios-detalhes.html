@@ -13,7 +13,7 @@
             <div class="form-group" ng-class="{'has-error': criarUsuario.nome.$invalid}">
                 <label class="control-label">Nome</label>
                 <input name="nome" type="text" class="form-control" placeholder="Nome do usuário" ng-minlength="3"
-                       ng-model="usuario.nome" required>
+                       ng-model="usuario.nome" autofocus required>
             <span ng-show="criarUsuario.nome.$error.required"
                   class="help-block">Campo de preenchimento obrigatório.</span>
                 <span ng-show="criarUsuario.nome.$error.minlength" class="help-block">Necessário fornecer ao menos três caracteres.</span>

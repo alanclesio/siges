@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="disciplina in disciplinas | orderBy:['nome']">
+                <tr ng-repeat="disciplina in disciplinas | orderBy:['nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{ disciplina.nome }}</td>
                     <td>{{ disciplina.informacoes|truncate:55 }}</td>
                     <td class="text-center">
@@ -33,8 +33,19 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="form-group pull-right">
-                <a href="#/disciplinas/criar" class="btn btn-info">Adicionar</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#/disciplinas/criar" class="btn btn-info">Adicionar</a>
+                    <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+                        <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                            Anterior
+                        </button>
+                        {{paginaAtual+1}} / {{paginaTotal()}}
+                        <button class="btn btn-default" ng-disabled="paginaAtual >= usuarios.length/paginaTamanho - 1"
+                                ng-click="paginaAtual=paginaAtual+1">Próximo
+                        </button>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

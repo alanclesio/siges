@@ -105,6 +105,11 @@ angular.module('siges.controllers', []).
     }])
     .controller('DisciplinasListarCtrl', ['$scope', 'Disciplinas', function ($scope, Disciplinas) {
         $scope.disciplinas = Disciplinas;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 10;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.disciplinas.length / $scope.paginaTamanho);
+        }
     }]).
     // controles responsáveis por manter turmas
     // Controles turmas
@@ -142,6 +147,11 @@ angular.module('siges.controllers', []).
     controller('TurmasListarCtrl', ['$scope', 'Disciplinas', 'Turmas', function ($scope, Disciplinas, Turmas) {
         $scope.turmas = Turmas;
         $scope.disciplinas = Disciplinas;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 10;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.turmas.length / $scope.paginaTamanho);
+        }
     }]).
     // controles responsáveis por manter instituições
     controller('InstituicoesCriarCtrl', ['$scope', '$location', '$timeout', 'Instituicoes', function ($scope, $location, $timeout, Instituicoes) {
@@ -181,6 +191,11 @@ angular.module('siges.controllers', []).
     }]).
     controller('InstituicoesListarCtrl', ['$scope', 'Instituicoes', function ($scope, Instituicoes) {
         $scope.instituicoes = Instituicoes;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 10;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.instituicoes.length / $scope.paginaTamanho);
+        }
     }]).
     // controle primeiro acesso do usuário
     controller('PrimeiroAcessoCtrl', [

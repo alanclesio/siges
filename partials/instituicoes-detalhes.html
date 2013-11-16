@@ -13,7 +13,7 @@
         <form name="criarInstituicao" role="form">
                 <div class="form-group" ng-class="{'has-error': criarInstituicao.nome.$invalid}">
                     <label class="control-label">Instituição</label>
-                    <input type="text" name="nome" class="form-control" placeholder="Nome da instituição" ng-minlength="3" ng-model="instituicao.nome" required>
+                    <input type="text" name="nome" class="form-control" placeholder="Nome da instituição" ng-minlength="3" ng-model="instituicao.nome" autofocus required>
                     <span ng-show="criarInstituicao.nome.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="criarInstituicao.nome.$error.minlength" class="help-block">Pelo menos três caracteres</span>
                 </div>

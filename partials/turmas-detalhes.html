@@ -21,7 +21,7 @@
                 <div class="form-group" ng-class="{'has-error': criarTurma.nome.$invalid}">
                     <label class="control-label">Turma</label>
                     <input type="text" name="nome" class="form-control" placeholder="Nome da turma"
-                           ng-minlength="3" ng-model="turma.nome" required>
+                           ng-minlength="3" ng-model="turma.nome" autofocus required>
                     <span ng-show="criarTurma.nome.$error.required"
                           class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="criarTurma.nome.$error.minlength"

@@ -14,6 +14,9 @@ angular.module('siges.filters', []).
             if (end === undefined) {
                 end = "...";
             }
+            if (text === undefined) {
+                text = "";
+            }
             if (text.length <= length || text.length - end.length <= length) {
                 return text;
             }

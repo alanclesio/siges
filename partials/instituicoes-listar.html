@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="instituicao in instituicoes | orderBy:['nome']">
+                <tr ng-repeat="instituicao in instituicoes | orderBy:['nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{ instituicao.nome }}</td>
                     <td>{{ instituicao.informacoes }}</td>
                     <td class="text-center"><a href="{{ instituicao.site }}" target="_blank"
@@ -37,8 +37,19 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="form-group pull-right">
-                <a href="#/instituicoes/criar" class="btn btn-info">Adicionar</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#/instituicoes/criar" class="btn btn-info">Adicionar</a>
+                    <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+                        <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                            Anterior
+                        </button>
+                        {{paginaAtual+1}} / {{paginaTotal()}}
+                        <button class="btn btn-default" ng-disabled="paginaAtual >= usuarios.length/paginaTamanho - 1"
+                                ng-click="paginaAtual=paginaAtual+1">Próximo
+                        </button>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
