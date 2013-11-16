@@ -257,17 +257,21 @@ angular.module('siges.controllers', []).
         }]).
     // controle do perfil de usuário
     controller('PerfilCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
-        angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
-            then(function () {
-                $scope.usuarioLogado = angular.copy($scope.remote);
-                $scope.alterado = function () {
-                    return angular.equals($scope.remote, $scope.usuarioLogado);
-                };
-                $scope.salvar = function () {
-                    $scope.remote = angular.copy($scope.usuarioLogado);
-                    $location.path('/perfil/' + $routeParams.id);
-                };
-            })
+        if (localStorage.sigesUserAuth == "true") {
+            angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
+                then(function () {
+                    $scope.usuarioLogado = angular.copy($scope.remote);
+                    $scope.alterado = function () {
+                        return angular.equals($scope.remote, $scope.usuarioLogado);
+                    };
+                    $scope.salvar = function () {
+                        $scope.remote = angular.copy($scope.usuarioLogado);
+                        $location.path('/perfil/' + $routeParams.id);
+                    };
+                })
+        } else {
+            $location.path('/login');
+        }
     }]).
     // controle responsável pela autenticação de usuários
     controller('LoginCtrl', [

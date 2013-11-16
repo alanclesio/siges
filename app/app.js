@@ -37,15 +37,15 @@ angular.module('siges', [
         $routeProvider.otherwise({redirectTo: '/404'});
     }]).run(function ($rootScope, $location) {
         $rootScope.$on("$locationChangeStart", function (event, next, current) {
-            console.info('Evento: ', event);
-            console.info('Próxima: ', next);
-            console.info('Atual: ', current);
             for (var i in window.routes) {
                 if (next.indexOf(i) != -1) {
                     if (window.routes[i].requireLogin) {
-                        console.info('Redirecionou!');
-//                        event.preventDefault();
-//                        $location.path('/login');
+                        if (localStorage.sigesUserAuth == "false"){
+                            $location.path('/login');
+                            if(!$rootScope.$$phase) {
+                                $rootScope.$apply();
+                            }
+                        }
                     }
                 }
             }

@@ -2,11 +2,14 @@
 
 angular.module('siges.services', []).
     service('Autenticacao', ['$rootScope', 'angularFire', function ($rootScope, angularFire) {
+        var userIsAuthenticated = false;
         this.auth = new FirebaseSimpleLogin(new Firebase("https://siges.firebaseio.com"), function (error, user) {
             if (user) {
+                localStorage.sigesUserAuth = true;
                 $rootScope.$emit("loggedin", user);
             }
             else if (error) {
+                localStorage.sigesUserAuth = false;
                 jQuery('.modal').modal('hide');
                 switch (error.code) {
                     case 'AUTHENTICATION_DISABLED':
@@ -52,6 +55,7 @@ angular.module('siges.services', []).
                 }
             }
             else {
+                localStorage.sigesUserAuth = false;
                 $rootScope.$emit("loggedout");
             }
         });
