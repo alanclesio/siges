@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="disciplina in disciplinas">
+                <tr ng-repeat="disciplina in disciplinas | orderBy:[nome]">
                     <td>{{ disciplina.nome }}</td>
                     <td>{{ disciplina.informacoes|truncate:55 }}</td>
                     <td class="text-center">
