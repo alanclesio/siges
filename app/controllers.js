@@ -281,7 +281,7 @@ angular.module('siges.controllers', []).
         'angularFire',
         '$rootScope',
         '$location',
-        '$timeout', '$cookies', function ($scope, Usuarios, Autenticacao, angularFire, $rootScope, $location, $timeout, $cookies) {
+        '$timeout', function ($scope, Usuarios, Autenticacao, angularFire, $rootScope, $location, $timeout) {
             if ($scope.usuarioLogado) {
                 if ($location.$$path == '/login') {
                     $location.path('/');
