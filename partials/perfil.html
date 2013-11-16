@@ -1,4 +1,4 @@
-<div ng-show="!!usuarioLogado" style="display: none;">
+<div ng-show="!!usuarioLogado">
     <div class="page-title">
         <h2><i class="icon-desktop color"></i> Perfil
             <small>Preencha todas as informações</small>
@@ -39,7 +39,7 @@
                         <tr>
                             <td><strong>Sobre mim</strong></td>
                             <td>:</td>
-                            <td ng-bind-html-unsafe="usuarioLogado.sobre || '--' | quebralinha"></td>
+                            <td ng-bind-html="usuarioLogado.sobre || '--' | quebralinha "></td>
                         </tr>
 
                         </tbody>
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="awidget clearfix" style="margin-top: 10px;">
+    <div class="awidget clearfix" style="margin-top: 10px;" ng-show="usuarioLogado.$id == $routeParams.$id">
         <div class="awidget-head">
             <h3>Editar informações pessoais</h3>
         </div>

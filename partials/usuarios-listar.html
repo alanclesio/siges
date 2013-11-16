@@ -1,4 +1,4 @@
-<div ng-show="usuarioLogado.admin" style="display: none;">
+<div ng-show="usuarioLogado.admin">
     <div class="page-title">
         <h2><i class="icon-desktop color"></i> Usuários
             <small>Cadastro de usuários</small>
@@ -7,7 +7,12 @@
     </div>
     <div class="awidget clearfix">
         <div class="awidget-head">
-            <h3>Listagem dos usuários cadastrados <span class="pull-right"><input type="text" ng-model="pesquisa" ng-show="mostrarPesquisa" ng-blur="mostrarPesquisa = !mostrarPesquisa" autofocus/><i class="icon-search" ng-click="mostrarPesquisa = !mostrarPesquisa" ng-show="!mostrarPesquisa"></i></span></h3>
+            <h3>Listagem dos usuários cadastrados
+                <span class="pull-right">
+                    <input type="text" ng-model="pesquisa" ng-show="mostrarPesquisa" ng-blur="mostrarPesquisa = !mostrarPesquisa" autofocus/>
+                    <i class="icon-search" ng-click="mostrarPesquisa = !mostrarPesquisa" ng-show="!mostrarPesquisa"></i>
+                </span>
+            </h3>
         </div>
         <div class="awidget-body">
             <table class="table table-bordered table-hover table-condensed table-striped">

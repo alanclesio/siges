@@ -2,7 +2,6 @@
 
 angular.module('siges.services', []).
     service('Autenticacao', ['$rootScope', 'angularFire', function ($rootScope, angularFire) {
-        var userIsAuthenticated = false;
         this.auth = new FirebaseSimpleLogin(new Firebase("https://siges.firebaseio.com"), function (error, user) {
             if (user) {
                 localStorage.sigesUserAuth = true;

@@ -5,8 +5,8 @@ angular.module('siges.filters', []).
         return function (text) {
             return (text).replace(/(\r\n|\n\r|\r|\n)/g, '<br />');
         }
-    })
-    .filter('truncate',function () {
+    }).
+    filter('truncate',function () {
         return function (text, length, end) {
             if (isNaN(length)) {
                 length = 10;

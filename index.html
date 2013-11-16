@@ -41,7 +41,7 @@
                         </div>
                         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown"  ng-show="!!usuarioLogado" style="display: none;">
+                                <li class="dropdown"  ng-show="!!usuarioLogado">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                             class="icon-comments"></i>
                                         Bate-papos <span class="label label-success">15</span> <b class="caret"></b></a>
@@ -79,7 +79,7 @@
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-show="!!usuarioLogado" style="display: none;">
+                                <li class="dropdown" ng-show="!!usuarioLogado">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Minha conta <b
                                             class="caret"></b></a>
                                     <ul class="dropdown-menu animated">
@@ -87,7 +87,7 @@
                                         <li><a href="#" ng-click="logout()">Sair</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-show="!usuarioLogado" style="display: none;"><a href="#/login">Entrar</a></li>
+                                <li class="dropdown" ng-show="!usuarioLogado"><a href="#/login">Entrar</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="sidebar-dropdown"><a href="#">MENU</a></div>
             <div class="row">
-                <div class="sidey col-md-2" ng-show="!!usuarioLogado" style="display: none;">
+                <div class="sidey col-md-2" ng-show="!!usuarioLogado">
                     <div class="side-cont">
                         <ul class="nav">
                             <li class="current"><a href="#"><i class="icon-home"></i> Painel</a></li>
@@ -110,6 +110,7 @@
                                     <span class="caret pull-right"></span>
                                 </a>
                                 <ul>
+                                    <li><a href="#/avisos">Avisos</a></li>
                                     <li><a href="#/usuarios">Usuários</a></li>
                                     <li><a href="#/instituicoes">Instituições</a></li>
                                     <li><a href="#/disciplinas">Disciplinas</a></li>
@@ -144,6 +145,8 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-route.min.js"></script>
+<script type="text/javascript" src="js/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="js/angular-cookies.min.js"></script>
 <script type="text/javascript" src="js/angular-ui-mask.js"></script>
 <script type="text/javascript" src="js/md5-service.js"></script>

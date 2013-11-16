@@ -4,6 +4,8 @@ angular.module('siges', [
         'ui.mask',
         'md5',
         'firebase',
+        'ngRoute',
+        'ngSanitize',
         'siges.factories',
         'siges.filters',
         'siges.services',
@@ -13,6 +15,9 @@ angular.module('siges', [
     config(['$routeProvider', function ($routeProvider) {
         window.routes = {
             "/": {templateUrl: 'partials/home.html', requireLogin: false},
+            "/avisos/criar": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosCriarCtrl', requireLogin: true},
+            "/avisos/editar/:id": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosEditarCtrl', requireLogin: true},
+            "/avisos": {templateUrl: 'partials/avisos-listar.html', controller: 'AvisosListarCtrl', requireLogin: true},
             "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},
             "/turmas/editar/:id": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl', requireLogin: true},
             "/turmas": {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl', requireLogin: true},
