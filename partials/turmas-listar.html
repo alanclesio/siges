@@ -24,7 +24,7 @@
                     <td>{{ turma.nome }}</td>
                     <td>
                         <div ng-repeat="disciplina in disciplinas">
-                            <div ng-if="disciplina.$id == turma.disciplinaId">{{ disciplina.nome }}</div>
+                            <div ng-show="disciplina.$id == turma.disciplinaId">{{ disciplina.nome }}</div>
                         </div>
                     </td>
                     <td>{{ turma.informacoes }}</td>
