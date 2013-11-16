@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('siges.filters', []).
-    filter('quebralinha', function () {
+    filter('quebralinha',function () {
         return function (text) {
             return (text).replace(/(\r\n|\n\r|\r|\n)/g, '<br />');
         }
@@ -26,14 +26,14 @@ angular.module('siges.filters', []).
 
         };
     }).
-    filter('iniciaEm', function () {
+    filter('iniciaEm',function () {
         return function (entrada, inicio) {
             inicio = +inicio; // parse int
             return entrada.slice(inicio);
         }
     }).
     filter('hasChild', function () {
-        return function(objeto, id, atributo) {
+        return function (objeto, id, atributo) {
             for (var i = 0; i < objeto.length; i++) {
                 if (objeto[i][atributo] == id) {
                     return true;

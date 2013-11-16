@@ -23,14 +23,12 @@ $(document).ready(function () {
 
 $(".totop").hide();
 
-$(function(){
-    $(window).scroll(function(){
-        if ($(this).scrollTop()>300)
-        {
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
             $('.totop').slideDown();
         }
-        else
-        {
+        else {
             $('.totop').slideUp();
         }
     });

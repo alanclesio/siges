@@ -12,8 +12,9 @@
         <div class="awidget-body">
             <div class="row">
                 <div class="col-md-3 col-sm-3">
-                    <a href="http://www.gravatar.com/avatar/{{usuarioLogado.md5_hash}}?s=600"><img ng-src="http://www.gravatar.com/avatar/{{usuarioLogado.md5_hash}}?s=250"
-                                     class="img-thumbnail img-circle img-responsive" alt=""></a>
+                    <a href="http://www.gravatar.com/avatar/{{usuarioLogado.md5_hash}}?s=600"><img
+                            ng-src="http://www.gravatar.com/avatar/{{usuarioLogado.md5_hash}}?s=250"
+                            class="img-thumbnail img-circle img-responsive" alt=""></a>
                 </div>
                 <div class="col-md-9 col-sm-9">
                     <table class="table">
@@ -72,7 +73,8 @@
                 </div>
                 <div class="form-group" ng-class="{'has-error': perfil.celular.$invalid}">
                     <label class="control-label">Celular</label>
-                    <input name="celular" type="text" class="form-control" ui-mask="(99) 9999-9999" ng-model="usuarioLogado.celular">
+                    <input name="celular" type="text" class="form-control" ui-mask="(99) 9999-9999"
+                           ng-model="usuarioLogado.celular">
                 </div>
                 <div class="form-group" ng-class="{'has-error': perfil.sobre.$invalid}">
                     <label class="control-label">Sobre mim</label>

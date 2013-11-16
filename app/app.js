@@ -44,9 +44,9 @@ angular.module('siges', [
             for (var i in window.routes) {
                 if (next.indexOf(i) != -1) {
                     if (window.routes[i].requireLogin) {
-                        if (localStorage.sigesUserAuth == "false"){
+                        if (localStorage.sigesUserAuth == "false") {
                             $location.path('/login');
-                            if(!$rootScope.$$phase) {
+                            if (!$rootScope.$$phase) {
                                 $rootScope.$apply();
                             }
                         }

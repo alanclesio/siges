@@ -10,12 +10,12 @@
             <h3>Listagem dos avisos cadastrados</h3>
         </div>
         <div class="awidget-body">
-        <table class="table table-bordered table-hover table-condensed table-striped">
+            <table class="table table-bordered table-hover table-condensed table-striped">
                 <thead>
                 <tr>
                     <th>Título</th>
                     <th>Aviso</th>
-                    <th>Data</th>
+                    <th>Cadastro</th>
                     <th style="width: 50px;">Ações</th>
                 </tr>
                 </thead>
@@ -23,7 +23,7 @@
                 <tr ng-repeat="aviso in avisos | orderBy:['dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{ aviso.titulo}}</td>
                     <td>{{ aviso.texto | truncate:55 }}</td>
-                    <td>{{ aviso.dataHora }}</td>
+                    <td>{{ aviso.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}</td>
                     <td class="text-center">
                         <a href="#/avisos/editar/{{ aviso.$id }}" class="btn btn-xs btn-info"
                            title="Editar informações do aviso {{ aviso.titulo }}">
