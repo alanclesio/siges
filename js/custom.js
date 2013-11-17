@@ -17,6 +17,20 @@ $(document).ready(function () {
             menu_li.addClass("open");
         }
     });
+    $('body').on('click', '.dropdown-toggle', function (e) {
+        e.preventDefault();
+    });
+    $('body').popover({
+        animation: false,
+        html: true,
+        trigger: 'hover',
+        placement: 'auto top',
+        selector: '[rel=popover]',
+        content: function () {
+            return $($(this).data('conteudo')).html();
+        }
+    });
+
 });
 
 /* Scroll to Top starts */

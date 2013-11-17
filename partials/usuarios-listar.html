@@ -9,7 +9,8 @@
         <div class="awidget-head">
             <h3>Listagem dos usuários cadastrados
                 <span class="pull-right">
-                    <input type="text" ng-model="pesquisa" ng-show="mostrarPesquisa"
+                    <input type="text" class="form-control" placeholder="Pesquisar..." ng-model="pesquisa"
+                           ng-show="mostrarPesquisa"
                            ng-blur="mostrarPesquisa = !mostrarPesquisa" autofocus/>
                     <i class="icon-search" ng-click="mostrarPesquisa = !mostrarPesquisa" ng-show="!mostrarPesquisa"></i>
                 </span>
@@ -34,8 +35,31 @@
                         {{usuario.celular || '--'}}
                     </td>
                     <td style="text-align: center;">
-                        <a href="#/turma/editar/{{usuario.turma.id}}" class="btn btn-info btn-xs">{{usuario.turma ||
-                            '--'}}</a>
+                        <div ng-repeat="turma in turmas | filter:{$id:usuario.turmaId}">
+                            <a href="#/turmas/editar/{{usuario.turmaId}}" data-conteudo="#{{usuario.turmaId}}" class="btn btn-info btn-xs" rel="popover"
+                               data-toggle="popover">{{turma.nome}}</a>
+                            <div id="{{usuario.turmaId}}" class="hidden">
+                                <table class="table" style="margin-bottom: 0;">
+                                    <tbody>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center; border-top: 0px;">{{turma.nome}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Horário</th>
+                                        <td>{{turma.horario}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Info</th>
+                                        <td>{{turma.informacoes}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Disciplina</th>
+                                        <td ng-repeat="disciplina in disciplinas | filter:{$id:turma.disciplinaId}">{{disciplina.nome}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </td>
                     <td style="text-align: center;">
                         <a href="#/usuarios/editar/{{usuario.$id}}" class="btn btn-info btn-xs"

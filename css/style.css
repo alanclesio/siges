@@ -1131,3 +1131,7 @@ footer .copy {
         border-radius: 10px;
     }
 }
+
+.popover-content {
+    padding-top: 0px;
+}

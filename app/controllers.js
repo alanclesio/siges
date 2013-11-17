@@ -7,8 +7,10 @@ angular.module('siges.controllers', []).
         '$location',
         '$timeout',
         'Usuarios',
+        'Turmas',
         'md5',
-        function ($scope, $location, $timeout, Usuarios, md5) {
+        function ($scope, $location, $timeout, Usuarios, Turmas, md5) {
+            $scope.turmas = Turmas;
             $scope.salvar = function () {
                 var usuarioCadastrado;
                 angular.forEach(Usuarios, function (usuario, key) {
@@ -42,7 +44,9 @@ angular.module('siges.controllers', []).
         '$routeParams',
         'angularFire',
         'ProjetoFireBaseUrl',
-        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
+        'Turmas',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas) {
+            $scope.turmas = Turmas;
             angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
                 then(function () {
                     $scope.usuario = angular.copy($scope.remote);
@@ -63,8 +67,12 @@ angular.module('siges.controllers', []).
     controller('UsuariosListarCtrl', [
         '$scope',
         'Usuarios',
-        function ($scope, Usuarios) {
+        'Turmas',
+        'Disciplinas',
+        function ($scope, Usuarios, Turmas, Disciplinas) {
             $scope.usuarios = Usuarios;
+            $scope.turmas = Turmas;
+            $scope.disciplinas = Disciplinas;
             $scope.paginaAtual = 0;
             $scope.paginaTamanho = 10;
             $scope.paginaTotal = function () {
@@ -329,19 +337,7 @@ angular.module('siges.controllers', []).
     }]).
     // controle responsável por manter o calendário
     controller('CalendarioCtrl', ['$scope', function ($scope) {
-        $scope.calendario = {
-            "success": 1,
-            "result": [
-                {
-                    "id": 293,
-                    "title": "Event 1",
-                    "url": "http://example.com",
-                    "class": 'event-important',
-                    "start": 12039485678000, // Milliseconds
-                    "end": 1234576967000 // Milliseconds
-                }
-            ]
-        }
+        $scope.calendario = { hoje: new Date().getTime() };
     }]).
     // controle responsável pela autenticação de usuários
     controller('LoginCtrl', [
