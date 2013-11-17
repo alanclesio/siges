@@ -327,6 +327,22 @@ angular.module('siges.controllers', []).
             $location.path('/login');
         }
     }]).
+    // controle responsável por manter o calendário
+    controller('CalendarioCtrl', ['$scope', function ($scope) {
+        $scope.calendario = {
+            "success": 1,
+            "result": [
+                {
+                    "id": 293,
+                    "title": "Event 1",
+                    "url": "http://example.com",
+                    "class": 'event-important',
+                    "start": 12039485678000, // Milliseconds
+                    "end": 1234576967000 // Milliseconds
+                }
+            ]
+        }
+    }]).
     // controle responsável pela autenticação de usuários
     controller('LoginCtrl', [
         '$scope',

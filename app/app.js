@@ -32,6 +32,7 @@ angular.module('siges', [
             "/usuarios": {templateUrl: 'partials/usuarios-listar.html', controller: 'UsuariosListarCtrl', requireLogin: true},
             "/primeiro-acesso": {templateUrl: 'partials/primeiro-acesso.html', controller: 'PrimeiroAcessoCtrl', requireLogin: false},
             "/perfil/:id": {templateUrl: 'partials/perfil.html', controller: 'PerfilCtrl', requireLogin: true},
+            "/calendario": {templateUrl: 'partials/calendario.html', controller: 'CalendarioCtrl', requireLogin: true},
             "/login": {templateUrl: 'partials/login.html', controller: 'LoginCtrl', requireLogin: false},
             "/404": {templateUrl: 'partials/404.html', requireLogin: false}
         }

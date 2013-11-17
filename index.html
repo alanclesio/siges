@@ -12,7 +12,6 @@
     <link href="css/jquery.gritter.css" rel="stylesheet">
     <link href="css/fullcalendar.css" rel="stylesheet">
     <link href="css/bootstrap-switch.css" rel="stylesheet">
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="css/rateit.css" rel="stylesheet">
     <link href="css/jquery.cleditor.css" rel="stylesheet">
     <link href="css/jquery-ui.css" rel="stylesheet">
@@ -99,11 +98,10 @@
         <div class="container">
             <div class="sidebar-dropdown"><a href="#">MENU</a></div>
             <div class="row">
-                <div class="sidey col-md-2" ng-show="!!usuarioLogado">
+                <div class="sidey col-md-3" ng-show="!!usuarioLogado">
                     <div class="side-cont">
                         <ul class="nav">
-                            <li class="current"><a href="#"><i class="icon-home"></i> Painel</a></li>
-                            <li><a href="#/avisos"><i class="icon-exclamation-sign"></i> Avisos</a></li>
+                            <li class="current"><a href="#/avisos"><i class="icon-exclamation-sign"></i> Avisos</a></li>
                             <li class="has_submenu" ng-show="usuarioLogado.admin">
                                 <a href="#">
                                     <i class="icon-plus"></i> Cadastros
@@ -111,20 +109,23 @@
                                 </a>
                                 <ul>
                                     <li><a href="#/avisos">Avisos</a></li>
+                                    <li><a href="#/notas">Notas</a></li>
+                                    <li><a href="#/frequencia">Frequência</a></li>
                                     <li><a href="#/usuarios">Usuários</a></li>
                                     <li><a href="#/instituicoes">Instituições</a></li>
                                     <li><a href="#/disciplinas">Disciplinas</a></li>
                                     <li><a href="#/turmas">Turmas</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#"><i class="icon-stackexchange"></i> Discussão</a></li>
-                            <li><a href="#"><i class="icon-calendar"></i> Calendário</a></li>
-                            <li><a href="#"><i class="icon-asterisk"></i> Frequência</a></li>
-                            <li><a href="#"><i class="icon-book"></i> Materiais</a></li>
+                            <li><a href="#/discussao"><i class="icon-stackexchange"></i> Fórum de discussão</a></li>
+                            <li><a href="#/calendario"><i class="icon-calendar"></i> Calendário</a></li>
+                            <li><a href="#/frequencia"><i class="icon-asterisk"></i> Frequência</a></li>
+                            <li><a href="#/notas"><i class="icon-book"></i> Notas</a></li>
+                            <li><a href="#/materiais"><i class="icon-paper-clip"></i> Materiais</a></li>
                         </ul>
                     </div>
                 </div>
-                <div ng-view ng-class="{'col-md-10': !!usuarioLogado}"></div>
+                <div ng-view ng-class="{'col-md-9': !!usuarioLogado}"></div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -147,7 +148,6 @@
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-route.min.js"></script>
 <script type="text/javascript" src="js/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="js/angular-cookies.min.js"></script>
 <script type="text/javascript" src="js/angular-ui-mask.js"></script>
 <script type="text/javascript" src="js/md5-service.js"></script>
 <script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
