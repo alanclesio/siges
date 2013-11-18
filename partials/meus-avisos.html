@@ -1,0 +1,35 @@
+<div class="page-title ng-scope" ng-show="!!usuarioLogado">
+    <h2><i class="icon-desktop color"></i> Avisos
+        <small>Últimos avisos cadastrados</small>
+    </h2>
+    <hr>
+</div>
+<div class="awidget" ng-show="usuarioLogado">
+    <div class="awidget-head">
+        <h3>Últimos avisos</h3>
+    </div>
+    <div class="awidget-body clearfix">
+        <ul class="recent">
+            <li ng-repeat="aviso in avisos | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
+                <h4>{{aviso.titulo}}</h4>
+                <div class="recent-content">
+                    <div class="recent-meta">Cadastrado no dia {{aviso.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}</div>
+                    <div ng-bind-html="aviso.texto | quebralinha"></div>
+                    <div class="form-group pull-right">
+                        <a href="#/calendario" class="btn btn-info">Ver no calendário</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+            <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                Anterior
+            </button>
+            {{paginaAtual+1}} / {{paginaTotal()}}
+            <button class="btn btn-default" ng-disabled="paginaAtual >= avisos.length/paginaTamanho - 1"
+                    ng-click="paginaAtual=paginaAtual+1">Próximo
+            </button>
+        </ul>
+    </div>
+</div>

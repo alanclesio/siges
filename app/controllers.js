@@ -8,9 +8,13 @@ angular.module('siges.controllers', []).
         '$timeout',
         'Usuarios',
         'Turmas',
+        'Disciplinas',
+        'Instituicoes',
         'md5',
-        function ($scope, $location, $timeout, Usuarios, Turmas, md5) {
+        function ($scope, $location, $timeout, Usuarios, Turmas, Disciplinas, Instituicoes, md5) {
             $scope.turmas = Turmas;
+            $scope.disciplinas = Disciplinas;
+            $scope.instituicoes = Instituicoes;
             $scope.salvar = function () {
                 var usuarioCadastrado;
                 angular.forEach(Usuarios, function (usuario, key) {
@@ -45,8 +49,12 @@ angular.module('siges.controllers', []).
         'angularFire',
         'ProjetoFireBaseUrl',
         'Turmas',
-        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas) {
+        'Disciplinas',
+        'Instituicoes',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
             $scope.turmas = Turmas;
+            $scope.disciplinas = Disciplinas;
+            $scope.instituicoes = Instituicoes;
             angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
                 then(function () {
                     $scope.usuario = angular.copy($scope.remote);
@@ -120,7 +128,10 @@ angular.module('siges.controllers', []).
         }
     }]).
     // controles responsáveis por manter disciplinas
-    controller('AvisosCriarCtrl', ['$scope', '$location', '$timeout', 'Avisos', function ($scope, $location, $timeout, Avisos) {
+    controller('AvisosCriarCtrl', ['$scope', '$location', '$timeout', 'Avisos', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Avisos, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
         $scope.salvar = function () {
             $scope.aviso.dataHora = new Date().getTime();
             Avisos.add($scope.aviso, function () {
@@ -132,7 +143,10 @@ angular.module('siges.controllers', []).
             });
         }
     }]).
-    controller('AvisosEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
+    controller('AvisosEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
         angularFire(ProjetoFireBaseUrl.child('avisos').child($routeParams.id), $scope, 'remote', {}).
             then(function () {
                 $scope.aviso = angular.copy($scope.remote);
@@ -336,6 +350,15 @@ angular.module('siges.controllers', []).
         }
     }]).
     // controle responsável por manter o calendário
+    controller('MeusAvisosCtrl', ['$scope', 'Avisos', function ($scope, Avisos) {
+        $scope.avisos = Avisos;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 5;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.avisos.length / $scope.paginaTamanho);
+        }
+    }]).
+    // controle responsável por manter o calendário
     controller('CalendarioCtrl', ['$scope', function ($scope) {
         $scope.calendario = { hoje: new Date().getTime() };
     }]).
@@ -350,7 +373,7 @@ angular.module('siges.controllers', []).
         '$timeout', function ($scope, Usuarios, Autenticacao, angularFire, $rootScope, $location, $timeout) {
             if ($scope.usuarioLogado) {
                 if ($location.$$path == '/login') {
-                    $location.path('/');
+                    $location.path('/meus-avisos');
                 }
             }
             $scope.login = function () {
@@ -376,7 +399,7 @@ angular.module('siges.controllers', []).
                     });
                 });
                 if ($location.$$path == '/login') {
-                    $location.path('/');
+                    $location.path('/meus-avisos');
                 }
                 jQuery('.modal').modal('hide');
             });

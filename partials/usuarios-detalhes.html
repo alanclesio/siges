@@ -26,11 +26,31 @@
                 <span ng-show="criarUsuario.email.$error.required"
                       class="help-block">Campo de preenchimento obrigatório.</span>
             </div>
+            <div class="form-group" ng-class="{'has-error': criarUsuario.instituicao.$invalid}">
+                <label class="control-label">Instituição</label>
+                <select name="instituicao" class="form-control" ng-model="usuario.instituicaoId"
+                        ng-options="instituicao.$id as instituicao.nome for instituicao in instituicoes"
+                        required>
+                    <option value="">Selecione</option>
+                </select>
+                <span ng-show="criarUsuario.instituicao.$error.required"
+                      class="help-block">Campo de preenchimento obrigatório.</span>
+            </div>
+            <div class="form-group" ng-class="{'has-error': criarUsuario.disciplina.$invalid}">
+                <label class="control-label">Disciplina</label>
+                <select name="disciplina" class="form-control" ng-model="usuario.disciplinaId"
+                        ng-options="disciplina.$id as disciplina.nome for disciplina in disciplinas | filter:{instituicaoId:usuario.instituicaoId}"
+                        ng-disabled="!usuario.instituicaoId" required>
+                    <option value="">Selecione</option>
+                </select>
+                <span ng-show="criarUsuario.disciplina.$error.required"
+                      class="help-block">Campo de preenchimento obrigatório.</span>
+            </div>
             <div class="form-group" ng-class="{'has-error': criarUsuario.turma.$invalid}">
                 <label class="control-label">Turma</label>
                 <select name="turma" class="form-control" ng-model="usuario.turmaId"
-                        ng-options="turma.$id as turma.nome for turma in turmas"
-                        required>
+                        ng-options="turma.$id as turma.nome for turma in turmas | filter:{disciplinaId:usuario.disciplinaId}"
+                        ng-disabled="!usuario.disciplinaId" required>
                     <option value="">Selecione</option>
                 </select>
                 <span ng-show="criarUsuario.turma.$error.required"
