@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('siges.services', []).
-    service('Autenticacao', ['$rootScope', 'angularFire', function ($rootScope, angularFire) {
+    service('Autenticacao', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         this.auth = new FirebaseSimpleLogin(new Firebase("https://siges.firebaseio.com"), function (error, user) {
             if (user) {
                 localStorage.sigesUserAuth = true;
