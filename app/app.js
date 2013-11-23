@@ -18,6 +18,8 @@ angular.module('siges', [
             "/avisos/criar": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosCriarCtrl', requireLogin: true},
             "/avisos/editar/:id": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosEditarCtrl', requireLogin: true},
             "/avisos": {templateUrl: 'partials/avisos-listar.html', controller: 'AvisosListarCtrl', requireLogin: true},
+            "/notas/criar/:id": {templateUrl: 'partials/notas-detalhes.html', controller: 'NotasCriarCtrl', requireLogin: true},
+            "/notas": {templateUrl: 'partials/notas-listar.html', controller: 'NotasListarCtrl', requireLogin: true},
             "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},
             "/turmas/editar/:id": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl', requireLogin: true},
             "/turmas": {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl', requireLogin: true},

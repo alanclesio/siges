@@ -87,6 +87,37 @@ angular.module('siges.controllers', []).
                 return Math.ceil($scope.usuarios.length / $scope.paginaTamanho);
             }
         }]).
+    // controles responsáveis pelas notas
+    controller('NotasCriarCtrl', [
+        '$scope',
+        '$routeParams',
+        'Usuarios',
+        'Turmas',
+        'Notas',
+        function ($scope, $routeParams, Usuarios, Turmas, Notas) {
+            $scope.usuarios = Usuarios;
+            $scope.turmas = Turmas;
+            $scope.nota = {
+                detalhes: {
+                    turmaId: $routeParams.id
+                }
+            };
+            $scope.salvar = function() {
+                Notas.add($scope.nota, function () {
+                    bootbox.alert('A avaliação <strong>' + $scope.nota.detalhes.titulo + '</strong> foi salva com sucesso!', function () {
+                        $timeout(function () {
+                            $location.path('/notas');
+                        });
+                    });
+                });
+            }
+        }]).
+    controller('NotasListarCtrl', [
+        '$scope',
+        'Turmas',
+        function ($scope, Turmas) {
+            $scope.turmas = Turmas;
+        }]).
     // controles responsáveis por manter disciplinas
     controller('DisciplinasCriarCtrl', ['$scope', '$location', '$timeout', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Disciplinas, Instituicoes) {
         $scope.instituicoes = Instituicoes;
