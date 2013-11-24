@@ -1,0 +1,56 @@
+<div ng-show="usuarioLogado.admin">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Avaliações
+            <small>Cadastro de avaliações por turma</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem de todas as avaliações</h3>
+        </div>
+        <div class="awidget-body">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Turma</th>
+                    <th>Avaliação</th>
+                    <th>Data</th>
+                    <th style="width: 50px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  ng-repeat="avaliacao in avaliacoes | orderBy:['nome']">
+                    <td>{{ disciplina.nome }}</td>
+                    <td>{{ turma.nome }}</td>
+                    <td>{{ avaliacao.nome }}</td>
+                    <td>{{ avaliacao.dataHora }}</td>
+                    <td class="text-center">
+                        <a href="#/avaliacoes/editar/{{ avaliacao.$id }}" class="btn btn-xs btn-info"
+                           title="Editar informações da avaliação {{ avaliacao.nome }}">
+                            <i class="icon-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr ng-hide="avaliacao.length">
+                    <td colspan="5">Não há Registros</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#/avaliacoes/criar" class="btn btn-info">Adicionar</a>
+                    <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+                        <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                            Anterior
+                        </button>
+                        {{paginaAtual+1}} / {{paginaTotal()}}
+                        <button class="btn btn-default" ng-disabled="paginaAtual >= avaliacoes.length/paginaTamanho - 1"
+                                ng-click="paginaAtual=paginaAtual+1">Próximo
+                        </button>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

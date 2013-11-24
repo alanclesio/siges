@@ -7,10 +7,11 @@
     </div>
     <div class="awidget clearfix">
         <div class="awidget-head">
-            <h3 ng-repeat="turma in turmas | filter:{$id:nota.detalhes.turmaId}">Cadastro de avaliação para turma <strong>{{turma.nome}}</strong></h3>
+            <h3 ng-repeat="turma in turmas | filter:{$id:avaliacao.turmaId}" ng-show="!mostrarAlunos">Cadastro de avaliação para turma <strong>{{turma.nome}}</strong></h3>
+            <h3 ng-repeat="turma in turmas | filter:{$id:avaliacao.turmaId}" ng-show="mostrarAlunos">Cadastro de notas</h3>
         </div>
         <div class="awidget-body">
-            <form name="dadosAvalicao">
+            <form name="dadosAvalicao" ng-show="!mostrarAlunos">
                 <div class="form-group" ng-class="{'has-error': dadosAvalicao.titulo.$invalid}">
                     <label class="control-label">Título da avaliação</label>
                     <input type="text" name="titulo" class="form-control" placeholder="Título da avaliação"
@@ -45,6 +46,30 @@
                     </button>
                 </div>
             </form>
+            <table class="table table-bordered table-hover table-condensed table-striped" ng-show="mostrarAlunos">
+            <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Turma</th>
+                <th>Avaliação</th>
+                <th>Informações</th>
+                <th>Data</th>
+                <th>Editar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Gestão de Processos</td>
+                <td>ADM8C</td>
+                <td>1º Bim</td>
+                <td>Sala 214</td>
+                <td>28/02/2014</td>
+                <td>
+                    <a class="btn btn-info btn-xs" title="Editar avaliação 1º Bim"><i class="icon-pencil"></i></a>
+                </td>
+            </tr>
+            </tbody>
+            </table>
         </div>
     </div>
 </div>

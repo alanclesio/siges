@@ -18,8 +18,8 @@ angular.module('siges', [
             "/avisos/criar": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosCriarCtrl', requireLogin: true},
             "/avisos/editar/:id": {templateUrl: 'partials/avisos-detalhes.html', controller: 'AvisosEditarCtrl', requireLogin: true},
             "/avisos": {templateUrl: 'partials/avisos-listar.html', controller: 'AvisosListarCtrl', requireLogin: true},
-            "/notas/criar/:id": {templateUrl: 'partials/notas-detalhes.html', controller: 'NotasCriarCtrl', requireLogin: true},
-            "/notas": {templateUrl: 'partials/notas-listar.html', controller: 'NotasListarCtrl', requireLogin: true},
+            "/avaliacoes/criar/:id": {templateUrl: 'partials/avaliacoes-detalhes.html', controller: 'AvaliacoesCriarCtrl', requireLogin: true},
+            "/avaliacoes": {templateUrl: 'partials/avaliacoes-listar.html', controller: 'AvaliacoesListarCtrl', requireLogin: true},
             "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},
             "/turmas/editar/:id": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl', requireLogin: true},
             "/turmas": {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl', requireLogin: true},
@@ -43,7 +43,8 @@ angular.module('siges', [
             $routeProvider.when(path, window.routes[path]);
         }
         $routeProvider.otherwise({redirectTo: '/404'});
-    }]).run(function ($rootScope, $location) {
+    }]).
+    run(function ($rootScope, $location) {
         $rootScope.$on("$locationChangeStart", function (event, next, current) {
             for (var i in window.routes) {
                 if (next.indexOf(i) != -1) {

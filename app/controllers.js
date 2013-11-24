@@ -88,35 +88,19 @@ angular.module('siges.controllers', []).
             }
         }]).
     // controles responsáveis pelas notas
-    controller('NotasCriarCtrl', [
+    controller('AvaliacoesCriarCtrl', [
         '$scope',
-        '$routeParams',
-        'Usuarios',
-        'Turmas',
-        'Notas',
-        function ($scope, $routeParams, Usuarios, Turmas, Notas) {
-            $scope.usuarios = Usuarios;
-            $scope.turmas = Turmas;
-            $scope.nota = {
-                detalhes: {
-                    turmaId: $routeParams.id
-                }
-            };
+        'Avaliacoes',
+        function ($scope, Avaliacoes) {
             $scope.salvar = function() {
-                Notas.add($scope.nota, function () {
-                    bootbox.alert('A avaliação <strong>' + $scope.nota.detalhes.titulo + '</strong> foi salva com sucesso!', function () {
-                        $timeout(function () {
-                            $location.path('/notas');
-                        });
-                    });
-                });
+                Avaliacoes.add($scope.avaliacao);
             }
         }]).
-    controller('NotasListarCtrl', [
+    controller('AvaliacoesListarCtrl', [
         '$scope',
-        'Turmas',
-        function ($scope, Turmas) {
-            $scope.turmas = Turmas;
+        'Avaliacoes',
+        function ($scope, Avaliacoes) {
+            $scope.avaliacoes = Avaliacoes;
         }]).
     // controles responsáveis por manter disciplinas
     controller('DisciplinasCriarCtrl', ['$scope', '$location', '$timeout', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Disciplinas, Instituicoes) {

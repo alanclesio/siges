@@ -7,8 +7,8 @@ angular.module('siges.factories', []).
     factory('Avisos',function (angularFireCollection, ProjetoFireBaseUrl) {
         return angularFireCollection(ProjetoFireBaseUrl.child('avisos'));
     }).
-    factory('Notas',function (angularFireCollection, ProjetoFireBaseUrl) {
-        return angularFireCollection(ProjetoFireBaseUrl.child('notas'));
+    factory('Avaliacoes',function (angularFireCollection, ProjetoFireBaseUrl) {
+        return angularFireCollection(ProjetoFireBaseUrl.child('avaliacoes'));
     }).
     factory('Usuarios',function (angularFireCollection, ProjetoFireBaseUrl) {
         return angularFireCollection(ProjetoFireBaseUrl.child('usuarios'));
