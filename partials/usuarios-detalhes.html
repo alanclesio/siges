@@ -26,6 +26,10 @@
                 <span ng-show="criarUsuario.email.$error.required"
                       class="help-block">Campo de preenchimento obrigatório.</span>
             </div>
+            <div class="form-group">
+                <label class="control-label">Administrador</label>
+                <input name="admin" type="checkbox" ng-model="usuario.admin" required>
+            </div>
             <div class="form-group" ng-class="{'has-error': criarUsuario.instituicao.$invalid}">
                 <label class="control-label">Instituição</label>
                 <select name="instituicao" class="form-control" ng-model="usuario.instituicaoId"
