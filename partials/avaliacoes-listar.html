@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr  ng-repeat="avaliacao in avaliacoes | orderBy:['nome']">
+                <tr  ng-repeat="avaliacao in avaliacoes | orderBy:['turmaId']">
                     <td ng-repeat="disciplina in disciplinas | filter:{$id:avaliacao.disciplinaId}">{{ disciplina.nome }}</td>
                     <td ng-repeat="turma in turmas | filter:{$id:avaliacao.turmaId}">{{ turma.nome }}</td>
                     <td>{{ avaliacao.nome }}</td>

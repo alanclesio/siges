@@ -88,7 +88,7 @@ angular.module('siges.controllers', []).
             }
         }]).
     // controles responsáveis pelas notas
-    controller('AvaliacoesCriarCtrl', [
+    controller('NotasListarCtrl', [
         '$scope',
         'Instituicoes',
         'Disciplinas',
@@ -98,8 +98,61 @@ angular.module('siges.controllers', []).
             $scope.instituicoes = Instituicoes;
             $scope.disciplinas = Disciplinas;
             $scope.turmas = Turmas;
+            $scope.avaliacoes = Avaliacoes;
+        }]).
+    controller('NotasCriarCtrl', [
+        '$scope',
+        '$routeParams',
+        'Instituicoes',
+        'Disciplinas',
+        'Turmas',
+        'Avaliacoes',
+        'ProjetoFireBaseUrl',
+        'angularFire',
+        function ($scope, $routeParams, Instituicoes, Disciplinas, Turmas, Avaliacoes, ProjetoFireBaseUrl, angularFire) {
+            $scope.instituicoes = Instituicoes;
+            $scope.disciplinas = Disciplinas;
+            $scope.turmas = Turmas;
+            $scope.avaliacoes = Avaliacoes;
+            $scope.routeId = $routeParams.id;
+            angularFire(ProjetoFireBaseUrl.child('usuarios'), $scope, 'usuarios', []).
+            then(function(){
+                    $scope.setNotas = function(usuario){
+                        angular.forEach($scope.usuarios, function(item){
+                            item.avaliacoes = item.avaliacoes || new Object();
+                            item.avaliacoes[$scope.routeId] = item.avaliacoes[$scope.routeId] || new Object();
+                        });
+                    }
+                    $scope.usuarioAusente = function (usuario){
+                        $scope.setNotas(usuario);
+                        usuario.avaliacoes[$scope.routeId].ausente = !usuario.avaliacoes[$scope.routeId].ausente;
+                        if(usuario.avaliacoes[$scope.routeId].ausente){
+                            usuario.avaliacoes[$scope.routeId].nota = 0;
+                        }
+                    };
+                });
+        }]).
+    // controles responsáveis pelas avaliações
+    controller('AvaliacoesCriarCtrl', [
+        '$scope',
+        '$timeout',
+        '$location',
+        'Instituicoes',
+        'Disciplinas',
+        'Turmas',
+        'Avaliacoes',
+        function ($scope, $timeout, $location, Instituicoes, Disciplinas, Turmas, Avaliacoes) {
+            $scope.instituicoes = Instituicoes;
+            $scope.disciplinas = Disciplinas;
+            $scope.turmas = Turmas;
             $scope.salvar = function () {
-                Avaliacoes.add($scope.avaliacao);
+                Avaliacoes.add($scope.avaliacao, function () {
+                    bootbox.alert('A avaliação <strong>' + $scope.avaliacao.nome + '</strong> foi salva com sucesso!', function () {
+                        $timeout(function () {
+                            $location.path('/avaliacoes');
+                        });
+                    });
+                });
             }
         }]).
     controller('AvaliacoesEditarCtrl', [
