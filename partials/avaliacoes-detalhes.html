@@ -1,75 +1,77 @@
 <div ng-show="usuarioLogado.admin">
     <div class="page-title">
-        <h2><i class="icon-desktop color"></i> Notas
-            <small>Manutenção de notas</small>
+        <h2><i class="icon-desktop color"></i> Cadastro de avaliação
+            <small>Manutenção de avaliações</small>
         </h2>
         <hr>
     </div>
     <div class="awidget clearfix">
         <div class="awidget-head">
-            <h3 ng-repeat="turma in turmas | filter:{$id:avaliacao.turmaId}" ng-show="!mostrarAlunos">Cadastro de avaliação para turma <strong>{{turma.nome}}</strong></h3>
-            <h3 ng-repeat="turma in turmas | filter:{$id:avaliacao.turmaId}" ng-show="mostrarAlunos">Cadastro de notas</h3>
+            <h3>Cadastro de avaliação</h3>
         </div>
         <div class="awidget-body">
             <form name="dadosAvalicao" ng-show="!mostrarAlunos">
-                <div class="form-group" ng-class="{'has-error': dadosAvalicao.titulo.$invalid}">
+                <div class="form-group" ng-class="{'has-error': dadosAvalicao.instituicao.$invalid}">
+                    <label class="control-label">Instituição</label>
+                    <select name="instituicao" class="form-control" ng-model="avaliacao.instituicaoId"
+                            ng-options="instituicao.$id as instituicao.nome for instituicao in instituicoes"
+                            autofocus required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="dadosAvalicao.instituicao.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': dadosAvalicao.disciplina.$invalid}">
+                    <label class="control-label">Disciplina</label>
+                    <select name="disciplina" class="form-control" ng-model="avaliacao.disciplinaId"
+                            ng-options="disciplina.$id as disciplina.nome for disciplina in disciplinas  | filter:{instituicaoId:avaliacao.instituicaoId}"
+                            ng-disabled="!avaliacao.instituicaoId" required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="dadosAvalicao.disciplina.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': dadosAvalicao.turma.$invalid}">
+                    <label class="control-label">Turma</label>
+                    <select name="turma" class="form-control" ng-model="avaliacao.turmaId"
+                            ng-options="turma.$id as turma.nome for turma in turmas | filter:{disciplinaId:avaliacao.disciplinaId}"
+                            ng-disabled="!avaliacao.disciplinaId" required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="dadosAvalicao.turma.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': dadosAvalicao.nome.$invalid}">
                     <label class="control-label">Título da avaliação</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Título da avaliação"
-                           ng-minlength="3" ng-model="nota.detalhes.titulo" autofocus required>
-                    <span ng-show="dadosAvalicao.titulo.$error.required" class="help-block">Campo de preenchimento necessário</span>
-                    <span ng-show="dadosAvalicao.titulo.$error.minlength"
+                    <input type="text" name="nome" class="form-control" placeholder="Título da avaliação"
+                           ng-minlength="3" ng-model="avaliacao.nome" required>
+                    <span ng-show="dadosAvalicao.nome.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    <span ng-show="dadosAvalicao.nome.$error.minlength"
                           class="help-block">Pelo menos três caracteres</span>
                 </div>
                 <div class="form-group" ng-class="{'has-error': dadosAvalicao.data.$invalid}">
                     <label class="control-label">Data</label>
                     <input type="text" name="data" class="form-control" placeholder="Data"
-                           ng-minlength="3" ng-model="nota.detalhes.dataHora" required>
+                           ng-minlength="3" ng-model="avaliacao.dataHora" required>
                     <span ng-show="dadosAvalicao.data.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="dadosAvalicao.data.$error.minlength"
                           class="help-block">Pelo menos três caracteres</span>
                 </div>
                 <div class="form-group" ng-class="{'has-error': dadosAvalicao.informacoes.$invalid}">
                     <label class="control-label">Informações</label>
-                    <input type="text" name="informacoes" class="form-control" placeholder="Data"
-                           ng-minlength="3" ng-model="nota.detalhes.informacoes" required>
+                    <input type="text" name="informacoes" class="form-control" placeholder="Informações adicionais"
+                           ng-minlength="3" ng-model="avaliacao.informacoes" required>
                     <span ng-show="dadosAvalicao.informacoes.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="dadosAvalicao.informacoes.$error.minlength"
                           class="help-block">Pelo menos três caracteres</span>
                 </div>
                 <div class="form-group pull-right">
-                    <a href="#/avisos" class="btn btn-default">Cancelar</a>
-                    <a class="btn btn-danger" ng-click="apagar()" ng-show="aviso.$id">Remover</a>
+                    <a href="#/avaliacoes" class="btn btn-default">Cancelar</a>
+                    <a class="btn btn-danger" ng-click="apagar()" ng-show="avaliacao.$id">Remover</a>
                     <button type="submit" class="btn btn-info" ng-click="salvar()"
                             ng-disabled="dadosAvalicao.$invalid || alterado()">
-                        <span ng-show="aviso.$id">Alterar</span>
-                        <span ng-show="!aviso.$id">Cadastrar</span>
+                        <span ng-show="avaliacao.$id">Alterar</span>
+                        <span ng-show="!avaliacao.$id">Cadastrar</span>
                     </button>
                 </div>
             </form>
-            <table class="table table-bordered table-hover table-condensed table-striped" ng-show="mostrarAlunos">
-            <thead>
-            <tr>
-                <th>Disciplina</th>
-                <th>Turma</th>
-                <th>Avaliação</th>
-                <th>Informações</th>
-                <th>Data</th>
-                <th>Editar</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Gestão de Processos</td>
-                <td>ADM8C</td>
-                <td>1º Bim</td>
-                <td>Sala 214</td>
-                <td>28/02/2014</td>
-                <td>
-                    <a class="btn btn-info btn-xs" title="Editar avaliação 1º Bim"><i class="icon-pencil"></i></a>
-                </td>
-            </tr>
-            </tbody>
-            </table>
         </div>
     </div>
 </div>

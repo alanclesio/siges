@@ -90,16 +90,57 @@ angular.module('siges.controllers', []).
     // controles responsáveis pelas notas
     controller('AvaliacoesCriarCtrl', [
         '$scope',
+        'Instituicoes',
+        'Disciplinas',
+        'Turmas',
         'Avaliacoes',
-        function ($scope, Avaliacoes) {
-            $scope.salvar = function() {
+        function ($scope, Instituicoes, Disciplinas, Turmas, Avaliacoes) {
+            $scope.instituicoes = Instituicoes;
+            $scope.disciplinas = Disciplinas;
+            $scope.turmas = Turmas;
+            $scope.salvar = function () {
                 Avaliacoes.add($scope.avaliacao);
             }
         }]).
+    controller('AvaliacoesEditarCtrl', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'angularFire',
+        'ProjetoFireBaseUrl',
+        'Instituicoes',
+        'Disciplinas',
+        'Turmas',
+        'Avaliacoes',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Instituicoes, Disciplinas, Turmas, Avaliacoes) {
+            $scope.instituicoes = Instituicoes;
+            $scope.disciplinas = Disciplinas;
+            $scope.turmas = Turmas;
+            angularFire(ProjetoFireBaseUrl.child('avaliacoes').child($routeParams.id), $scope, 'remote', {}).
+                then(function () {
+                    $scope.avaliacao = angular.copy($scope.remote);
+                    $scope.avaliacao.$id = $routeParams.id;
+                    $scope.alterado = function () {
+                        return angular.equals($scope.remote, $scope.avaliacao);
+                    }
+                    $scope.apagar = function () {
+                        $scope.remote = null;
+                        $location.path('/avaliacoes');
+                    };
+                    $scope.salvar = function () {
+                        $scope.remote = angular.copy($scope.avaliacao);
+                        $location.path('/avaliacoes');
+                    };
+                })
+        }]).
     controller('AvaliacoesListarCtrl', [
         '$scope',
+        'Disciplinas',
+        'Turmas',
         'Avaliacoes',
-        function ($scope, Avaliacoes) {
+        function ($scope, Disciplinas, Turmas, Avaliacoes) {
+            $scope.disciplinas = Disciplinas;
+            $scope.turmas = Turmas;
             $scope.avaliacoes = Avaliacoes;
         }]).
     // controles responsáveis por manter disciplinas
