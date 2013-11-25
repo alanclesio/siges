@@ -73,7 +73,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Nota" ng-model="usuario.avaliacoes[routeId].nota" ng-keyup="setNotas()" ng-disabled="usuario.avaliacoes[routeId].ausente"/>
+                                    <input type="text" class="form-control" placeholder="Nota" ng-model="usuario.avaliacoes[routeId].nota" ng-keyup="setNotas(usuario)" ng-disabled="usuario.avaliacoes[routeId].ausente"/>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
@@ -85,7 +85,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12" style="margin-top: 15px;">
-                                    <input type="text" class="form-control" placeholder="Observação" ng-model="usuario.avaliacoes[routeId].observacao" ng-keyup="setNotas()"/>
+                                    <input type="text" class="form-control" placeholder="Observação" ng-model="usuario.avaliacoes[routeId].observacao" ng-keyup="setNotas(usuario)"/>
                                 </div>
                             </div>
                         </div>

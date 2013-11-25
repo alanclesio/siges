@@ -122,7 +122,9 @@ angular.module('siges.controllers', []).
                             item.avaliacoes = item.avaliacoes || new Object();
                             item.avaliacoes[$scope.routeId] = item.avaliacoes[$scope.routeId] || new Object();
                         });
+                        if (usuario) usuario.avaliacoes[$scope.routeId].avaliacaoId = $scope.routeId;
                     }
+                    $scope.setNotas();
                     $scope.usuarioAusente = function (usuario){
                         $scope.setNotas(usuario);
                         usuario.avaliacoes[$scope.routeId].ausente = !usuario.avaliacoes[$scope.routeId].ausente;
@@ -458,7 +460,7 @@ angular.module('siges.controllers', []).
             $location.path('/login');
         }
     }]).
-    // controle responsável por manter o calendário
+    // controle responsável por mostrar os avisos
     controller('MeusAvisosCtrl', ['$scope', 'Avisos', function ($scope, Avisos) {
         $scope.avisos = Avisos;
         $scope.paginaAtual = 0;
@@ -466,6 +468,12 @@ angular.module('siges.controllers', []).
         $scope.paginaTotal = function () {
             return Math.ceil($scope.avisos.length / $scope.paginaTamanho);
         }
+    }]).
+    // controle responsável por mostrar as notas
+    controller('MinhasNotasCtrl', ['$scope', 'Avaliacoes', 'Usuarios', 'Disciplinas', function ($scope, Avaliacoes, Usuarios, Disciplinas) {
+        $scope.avaliacoes = Avaliacoes;
+        $scope.disciplinas = Disciplinas;
+        $scope.usuarios = Usuarios;
     }]).
     // controle responsável por manter o calendário
     controller('CalendarioCtrl', ['$scope', function ($scope) {
