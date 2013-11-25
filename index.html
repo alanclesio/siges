@@ -40,7 +40,7 @@
                         </div>
                         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown" ng-show="!!usuarioLogado">
+                                <li class="dropdown" ng-show="!!usuarioLogado" ng-cloak>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                             class="icon-comments"></i>
                                         Bate-papos <span class="label label-success">15</span> <b class="caret"></b></a>
@@ -78,7 +78,7 @@
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-show="!!usuarioLogado">
+                                <li class="dropdown" ng-show="!!usuarioLogado" ng-cloak>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Minha conta <b
                                             class="caret"></b></a>
                                     <ul class="dropdown-menu animated">
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div class="page-content blocky">
+    <div class="page-content blocky" ng-cloak>
         <div class="container">
             <div class="sidebar-dropdown"><a href="">MENU</a></div>
             <div class="row">
