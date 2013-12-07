@@ -1,0 +1,63 @@
+<div ng-show="usuarioLogado.admin">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Frequência
+            <small>Cadastro de frequência</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Filtre as turmas por disciplina</h3>
+        </div>
+        <div class="awidget-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error': dadosAvalicao.instituicao.$invalid}">
+                        <label class="control-label">Instituição</label>
+                        <select name="instituicao" class="form-control" ng-model="avaliacao.instituicaoId"
+                                ng-options="instituicao.$id as instituicao.nome for instituicao in instituicoes"
+                                autofocus required>
+                            <option value="">Selecione</option>
+                        </select>
+                        <span ng-show="dadosAvalicao.instituicao.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error': dadosAvalicao.disciplina.$invalid}">
+                        <label class="control-label">Disciplina</label>
+                        <select name="disciplina" class="form-control" ng-model="pesquisa.disciplinaId"
+                                ng-options="disciplina.$id as disciplina.nome for disciplina in disciplinas  | filter:{instituicaoId:avaliacao.instituicaoId}"
+                                ng-disabled="!avaliacao.instituicaoId" required>
+                            <option value="">Selecione</option>
+                        </select>
+                        <span ng-show="dadosAvalicao.disciplina.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4" style="margin-bottom: 10px;"
+                     ng-repeat="turma in turmas | filter:pesquisa:strict | orderBy:['nome']">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3 style="margin-top: 0">{{ turma.nome }}</h3>
+
+                            <p style="margin-bottom: 10px;">{{ turma.informacoes | truncate:30 }}</p>
+
+                            <a href="#/frequencias/criar/{{turma.$id}}" class="btn btn-info btn-block">Mostrar Frequência</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 colmd-4">
+                    <div class="thumbnail" ng-show="(turmas | filter:pesquisa:strict).length == 0">
+                        <div class="caption">
+                            <h3 style="margin-top: 0">Não há turmas para mostrar</h3>
+
+                            <p style="margin-bottom: 10px;">Tente cadastrar uma turma.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 angular.module('siges', [
         'ui.mask',
+        'ui.calendar',
         'md5',
         'firebase',
         'ngRoute',
@@ -21,6 +22,8 @@ angular.module('siges', [
             "/avaliacoes/criar": {templateUrl: 'partials/avaliacoes-detalhes.html', controller: 'AvaliacoesCriarCtrl', requireLogin: true},
             "/avaliacoes/editar/:id": {templateUrl: 'partials/avaliacoes-detalhes.html', controller: 'AvaliacoesEditarCtrl', requireLogin: true},
             "/avaliacoes": {templateUrl: 'partials/avaliacoes-listar.html', controller: 'AvaliacoesListarCtrl', requireLogin: true},
+            "/frequencias": {templateUrl: 'partials/frequencias-listar.html', controller: 'FrequenciasListarCtrl', requireLogin: true},
+            "/frequencias/criar/:id": {templateUrl: 'partials/frequencias-detalhes.html', controller: 'FrequenciasCriarCtrl', requireLogin: true},
             "/notas": {templateUrl: 'partials/notas-listar.html', controller: 'NotasListarCtrl', requireLogin: true},
             "/notas/criar/:id": {templateUrl: 'partials/notas-criar.html', controller: 'NotasCriarCtrl', requireLogin: true},
             "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},

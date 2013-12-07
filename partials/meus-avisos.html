@@ -9,7 +9,7 @@
         <h3>Últimos avisos</h3>
     </div>
     <div class="awidget-body clearfix">
-        <ul class="recent">
+        <ul  ng-show="!!usuarioLogado" class="recent">
             <li ng-repeat="aviso in avisos | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                 <h4>{{aviso.titulo}}</h4>
                 <div class="recent-content">
@@ -22,12 +22,12 @@
                 </div>
             </li>
         </ul>
-        <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+        <ul class="pagination pull-right" ng-show="Math.ceil((avisos | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho) > 1">
             <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
                 Anterior
             </button>
-            {{paginaAtual+1}} / {{paginaTotal()}}
-            <button class="btn btn-default" ng-disabled="paginaAtual >= avisos.length/paginaTamanho - 1"
+            {{paginaAtual+1}} / {{(Math.ceil((avisos | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho))}}
+            <button class="btn btn-default" ng-disabled="paginaAtual >= (avisos | filter:{turmaId:usuarioLogado.turmaId}).length/paginaTamanho - 1"
                     ng-click="paginaAtual=paginaAtual+1">Próximo
             </button>
         </ul>
