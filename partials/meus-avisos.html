@@ -5,22 +5,17 @@
     <hr>
 </div>
 <div class="awidget" ng-show="usuarioLogado">
-    <div class="awidget-head">
-        <h3>Últimos avisos</h3>
-    </div>
     <div class="awidget-body clearfix">
         <ul  ng-show="!!usuarioLogado" class="recent">
             <li ng-repeat="aviso in avisos | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
-                <h4>{{aviso.titulo}}</h4>
+                <h2>{{aviso.titulo}}</h2>
                 <div class="recent-content">
                     <div class="recent-meta">Cadastrado no dia {{aviso.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}</div>
                     <div ng-bind-html="aviso.texto | quebralinha"></div>
-                    <div class="form-group pull-right">
-                        <a href="#/calendario" class="btn btn-info">Ver no calendário</a>
-                    </div>
                     <div class="clearfix"></div>
                 </div>
             </li>
+            <li ng-show="!(avisos | filter:{turmaId:usuarioLogado.turmaId}).length">Não existe nenhum aviso cadastrado para sua turma.</li>
         </ul>
         <ul class="pagination pull-right" ng-show="Math.ceil((avisos | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho) > 1">
             <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">

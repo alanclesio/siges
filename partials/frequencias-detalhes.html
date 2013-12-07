@@ -10,7 +10,14 @@
             <h3>Qualquer alteração feita é gravada instantâneamente</h3>
         </div>
         <div class="awidget-body">
-            <div ui-calendar ng-model="eventSources"></div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default" ng-click="SetPresenca()">
+                    <input type="radio" name="options" id="option1"> Presente
+                </label>
+                <label class="btn btn-default" ng-click="SetPresenca()">
+                    <input type="radio" name="options" id="option2"> Ausente
+                </label>
+            </div>
         </div>
     </div>
 </div>

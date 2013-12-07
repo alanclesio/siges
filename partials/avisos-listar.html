@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="aviso in avisos | orderBy:-['dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
+                <tr ng-repeat="aviso in avisos | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
                     <td>{{ aviso.titulo}}</td>
                     <td>{{ aviso.texto | truncate:55 }}</td>
                     <td>{{ aviso.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}</td>

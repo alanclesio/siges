@@ -652,7 +652,7 @@ strong {
 .recent img {
     margin-top: 5px;
     margin-right: 10px;
-    max-width: 50px;
+    /*max-width: 50px;*/
 }
 
 .recent li {
