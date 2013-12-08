@@ -150,22 +150,44 @@ angular.module('siges.controllers', []).
     controller('FrequenciasCriarCtrl', [
         '$scope',
         '$routeParams',
+        '$filter',
         'Instituicoes',
         'Disciplinas',
         'Turmas',
         'Frequencias',
         'ProjetoFireBaseUrl',
         'angularFire',
-        function ($scope, $routeParams, Instituicoes, Disciplinas, Turmas, Frequencias, ProjetoFireBaseUrl, angularFire) {
+        function ($scope, $routeParams, $filter, Instituicoes, Disciplinas, Turmas, Frequencias, ProjetoFireBaseUrl, angularFire) {
             $scope.instituicoes = Instituicoes;
             $scope.disciplinas = Disciplinas;
             $scope.turmas = Turmas;
-            $scope.frequencias = Frequencias;
             $scope.routeId = $routeParams.id;
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+            $scope.dataHora = $filter('date')(new Date(y, m, d).getTime(), 'yyyy-MM-dd');
+            angular.forEach($scope.turmas, function(turma){
+                if(turma.$id == $scope.routeId){
+                    $scope.turma = turma;
+                }
+            });
+            angular.forEach($scope.disciplinas, function(disciplina){
+                if(disciplina.$id == $scope.turma.disciplinaId){
+                    $scope.disciplina = disciplina;
+                }
+            });
+            angular.forEach($scope.instituicoes, function(instituicao){
+                if(instituicao.$id == $scope.disciplina.instituicaoId){
+                    $scope.instituicao = instituicao;
+                }
+            });
             angularFire(ProjetoFireBaseUrl.child('usuarios'), $scope, 'usuarios', []).
                 then(function(){
-                    $scope.SetPresenca = function (usuario){
-                        console.log('Frequencia setada!');
+                    $scope.SetPresenca = function (usuario, status){
+                        usuario.frequencias = usuario.frequencias || {};
+                        usuario.frequencias[$scope.dataHora] = usuario.frequencias[$scope.dataHora] || {};
+                        usuario.frequencias[$scope.dataHora].status = status;
                     };
                 });
         }]).

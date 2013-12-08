@@ -6,10 +6,25 @@
         <hr>
     </div>
     <div class="awidget clearfix">
-        <div class="awidget-head">
-            <h3>Qualquer alteração feita é gravada instantâneamente</h3>
-        </div>
         <div class="awidget-body">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Instituição</th>
+                    <th>Disciplina</th>
+                    <th>Turma</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ instituicao.nome }}</td>
+                    <td>{{ disciplina.nome }}</td>
+                    <td>{{ turma.nome }}</td>
+                    <td><input type="date" ng-model="dataHora" style="width: 100%;"></td>
+                </tr>
+                </tbody>
+            </table>
             <div class="col-sm-6 col-md-4" ng-repeat="usuario in usuarios" style="margin-bottom: 10px;" ng-if="usuario.turmaId == routeId">
                 <div class="thumbnail">
                     <img ng-src="http://www.gravatar.com/avatar/{{usuario.md5_hash}}?s=80"
@@ -44,19 +59,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default" ng-click="SetPresenca(true)">
-                                        <input type="radio" name="options" ng-model="usuario.frequencias[routeId]"> Presente
-                                    </label>
-                                    <label class="btn btn-default" ng-click="SetPresenca(false)">
-                                        <input type="radio" ng-model="usuario.frequencias[dataHora]" value="false"> Ausente
-                                    </label>
+                                <div class="btn-group">
+                                    <label class="btn btn-default" ng-model="usuario.frequencias[dataHora].status"
+                                           ng-class="{active:usuario.frequencias[dataHora].status == true}"
+                                           ng-click="SetPresenca(usuario, true)">Presente</label>
+                                    <label class="btn btn-default" ng-model="usuario.frequencias[dataHora].status"
+                                           ng-class="{active:usuario.frequencias[dataHora].status == false}"
+                                           ng-click="SetPresenca(usuario, false)">Ausente</label>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12" style="margin-top: 15px;">
-                                <input type="text" class="form-control" placeholder="Observação" ng-model="usuario.avaliacoes[routeId].observacao" ng-keyup="setNotas(usuario)"/>
                             </div>
                         </div>
                     </div>
