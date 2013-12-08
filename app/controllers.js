@@ -427,6 +427,50 @@ angular.module('siges.controllers', []).
             return Math.ceil($scope.instituicoes.length / $scope.paginaTamanho);
         }
     }]).
+    // controles responsáveis por manter materiais
+    controller('MateriaisCriarCtrl', ['$scope', '$location', '$timeout', 'Materiais', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Materiais, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
+        $scope.salvar = function () {
+            Materiais.add($scope.material, function () {
+                bootbox.alert('O aviso <strong>' + $scope.material.nome + '</strong> foi salvo com sucesso!', function () {
+                    $timeout(function () {
+                        $location.path('/materiais');
+                    });
+                });
+            });
+        }
+    }]).
+    controller('MateriaisEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
+        angularFire(ProjetoFireBaseUrl.child('materiais').child($routeParams.id), $scope, 'remote', {}).
+            then(function () {
+                $scope.material = angular.copy($scope.remote);
+                $scope.material.$id = $routeParams.id;
+                $scope.alterado = function () {
+                    return angular.equals($scope.remote, $scope.material);
+                };
+                $scope.apagar = function () {
+                    $scope.remote = null;
+                    $location.path('/materiais');
+                };
+                $scope.salvar = function () {
+                    $scope.remote = angular.copy($scope.material);
+                    $location.path('/materiais');
+                };
+            })
+    }]).
+    controller('MateriaisListarCtrl', ['$scope', 'Materiais', function ($scope, Materiais) {
+        $scope.materiais = Materiais;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 10;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.materiais.length / $scope.paginaTamanho);
+        }
+    }]).
     // controle primeiro acesso do usuário
     controller('PrimeiroAcessoCtrl', [
         '$scope',
@@ -521,6 +565,13 @@ angular.module('siges.controllers', []).
     // controle responsável por mostrar os avisos
     controller('MeusAvisosCtrl', ['$scope', '$rootScope', 'Avisos', function ($scope, $rootScope, Avisos) {
         $scope.avisos = Avisos;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 3;
+        $scope.Math = window.Math;
+    }]).
+    // controle responsável por mostrar os materiais
+    controller('MeusMateriaisCtrl', ['$scope', '$rootScope', 'Materiais', function ($scope, $rootScope, Materiais) {
+        $scope.materiais = Materiais;
         $scope.paginaAtual = 0;
         $scope.paginaTamanho = 3;
         $scope.Math = window.Math;

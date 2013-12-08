@@ -29,6 +29,9 @@ angular.module('siges', [
             "/turmas/criar": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasCriarCtrl', requireLogin: true},
             "/turmas/editar/:id": {templateUrl: 'partials/turmas-detalhes.html', controller: 'TurmasEditarCtrl', requireLogin: true},
             "/turmas": {templateUrl: 'partials/turmas-listar.html', controller: 'TurmasListarCtrl', requireLogin: true},
+            "/materiais/criar": {templateUrl: 'partials/materiais-detalhes.html', controller: 'MateriaisCriarCtrl', requireLogin: true},
+            "/materiais/editar/:id": {templateUrl: 'partials/materiais-detalhes.html', controller: 'MateriaisEditarCtrl', requireLogin: true},
+            "/materiais": {templateUrl: 'partials/materiais-listar.html', controller: 'MateriaisListarCtrl', requireLogin: true},
             "/disciplinas/criar": {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasCriarCtrl', requireLogin: true},
             "/disciplinas/editar/:id": {templateUrl: 'partials/disciplinas-detalhes.html', controller: 'DisciplinasEditarCtrl', requireLogin: true},
             "/disciplinas": {templateUrl: 'partials/disciplinas-listar.html', controller: 'DisciplinasListarCtrl', requireLogin: true},
@@ -43,6 +46,7 @@ angular.module('siges', [
             "/minhas-notas": {templateUrl: 'partials/minhas-notas.html', controller: 'MinhasNotasCtrl', requireLogin: true},
             "/minhas-frequencias": {templateUrl: 'partials/minhas-frequencias.html', controller: 'MinhasFrequenciasCtrl', requireLogin: true},
             "/meus-avisos": {templateUrl: 'partials/meus-avisos.html', controller: 'MeusAvisosCtrl', requireLogin: true},
+            "/meus-materiais": {templateUrl: 'partials/meus-materiais.html', controller: 'MeusMateriaisCtrl', requireLogin: true},
             "/calendario": {templateUrl: 'partials/calendario.html', controller: 'CalendarioCtrl', requireLogin: true},
             "/login": {templateUrl: 'partials/login.html', controller: 'LoginCtrl', requireLogin: false},
             "/404": {templateUrl: 'partials/404.html', requireLogin: false}

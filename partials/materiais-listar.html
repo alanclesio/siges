@@ -1,0 +1,63 @@
+<div ng-show="usuarioLogado.admin">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Materiais
+            <small>Cadastro de materiais</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem dos materiais cadastrados</h3>
+        </div>
+        <div class="awidget-body">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="material in materiais | orderBy:['-nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
+                    <td>{{ material.nome}}</td>
+                    <td>{{ material.descricao | truncate:80 }}</td>
+                    <td>{{ material.tipo }}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="#/materiais/editar/{{ material.$id }}" type="button"
+                                    title="Editar informações do aviso {{ material.nome }}"
+                                    class="btn btn-xs btn-info"><i class="icon-pencil"></i></a>
+                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li title="Fazer download do arquivo {{material.nome}}"><a href="{{material.link}}" target="_blank">Download</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-hide="materiais.length">
+                    <td colspan="4">Não há Registros</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#/materiais/criar" class="btn btn-info">Adicionar</a>
+                    <ul class="pagination pull-right" ng-show="paginaTotal() > 1">
+                        <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                            Anterior
+                        </button>
+                        {{paginaAtual+1}} / {{paginaTotal()}}
+                        <button class="btn btn-default" ng-disabled="paginaAtual >= usuarios.length/paginaTamanho - 1"
+                                ng-click="paginaAtual=paginaAtual+1">Próximo
+                        </button>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

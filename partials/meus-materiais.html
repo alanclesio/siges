@@ -1,0 +1,31 @@
+<div class="page-title ng-scope" ng-show="!!usuarioLogado">
+    <h2><i class="icon-desktop color"></i> Materiais
+        <small>Últimos materiais cadastrados</small>
+    </h2>
+    <hr>
+</div>
+<div class="awidget" ng-show="usuarioLogado">
+    <div class="awidget-body clearfix">
+        <ul  ng-show="!!usuarioLogado" class="recent">
+            <li ng-repeat="material in materiais | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-nome'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
+                <h2>{{ material.nome }}</h2>
+                <div class="recent-content">
+                    <div class="recent-meta">Tipo: {{ material.tipo }}</div>
+                    <div>{{material.descricao}}</div>
+                    <a href="{{material.link}}" target="_blank" title="Fazer download ou abrir o material {{material.nome}}">Download</a>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+            <li ng-show="!(materiais | filter:{turmaId:usuarioLogado.turmaId}).length">Não existe nenhum material cadastrado para sua turma.</li>
+        </ul>
+        <ul class="pagination pull-right" ng-show="Math.ceil((materiais | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho) > 1">
+            <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                Anterior
+            </button>
+            {{paginaAtual+1}} / {{(Math.ceil((materiais | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho))}}
+            <button class="btn btn-default" ng-disabled="paginaAtual >= (materiais | filter:{turmaId:usuarioLogado.turmaId}).length/paginaTamanho - 1"
+                    ng-click="paginaAtual=paginaAtual+1">Próximo
+            </button>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div ng-show="usuarioLogado.admin">
+    <div class="page-title">
+        <h2><i class="icon-desktop color"></i> Materiais
+            <small>Cadastro de materiais</small>
+        </h2>
+        <hr>
+    </div>
+    <div class="awidget clearfix">
+        <div class="awidget-head">
+            <h3>Listagem dos materiais cadastrados</h3>
+        </div>
+        <div class="awidget-body">
+            <form name="criarMaterial" role="form">
+                <div class="form-group" ng-class="{'has-error': criarMaterial.nome.$invalid}">
+                    <label class="control-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Título do aviso"
+                           ng-minlength="3" ng-model="material.nome" autofocus required>
+                    <span ng-show="criarMaterial.nome.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    <span ng-show="criarMaterial.nome.$error.minlength"
+                          class="help-block">Pelo menos três caracteres</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.instituicao.$invalid}">
+                    <label class="control-label">Instituição</label>
+                    <select name="instituicao" class="form-control" ng-model="material.instituicaoId"
+                            ng-options="instituicao.$id as instituicao.nome for instituicao in instituicoes"
+                            required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="criarMaterial.instituicao.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.disciplina.$invalid}">
+                    <label class="control-label">Disciplina</label>
+                    <select name="disciplina" class="form-control" ng-model="material.disciplinaId"
+                            ng-options="disciplina.$id as disciplina.nome for disciplina in disciplinas  | filter:{instituicaoId:material.instituicaoId}"
+                            ng-disabled="!material.instituicaoId" required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="criarMaterial.disciplina.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.turma.$invalid}">
+                    <label class="control-label">Turma</label>
+                    <select name="turma" class="form-control" ng-model="material.turmaId"
+                            ng-options="turma.$id as turma.nome for turma in turmas | filter:{disciplinaId:material.disciplinaId}"
+                            ng-disabled="!material.disciplinaId" required>
+                        <option value="">Selecione</option>
+                    </select>
+                    <span ng-show="criarMaterial.turma.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.descricao.$invalid}">
+                    <label class="control-label">Descrição</label>
+                    <textarea name="descricao" cols="30" rows="5" class="form-control" placeholder="Informações adicionais"
+                              ng-minlength="3" ng-model="material.descricao" required></textarea>
+                    <span ng-show="criarMaterial.descricao.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                    <span ng-show="criarMaterial.descricao.$error.minlength"
+                          class="help-block">Pelo menos três caracteres</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.tipo.$invalid}">
+                    <label class="control-label">Tipo</label>
+                    <select name="tipo" class="form-control" ng-model="material.tipo" required>
+                        <option value="">Selecione</option>
+                        <option value="Áudio">Áudio</option>
+                        <option value="Imagem">Imagem</option>
+                        <option value="Texto">Texto</option>
+                        <option value="Vídeo">Vídeo</option>
+                    </select>
+                    <span ng-show="criarMaterial.tipo.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': criarMaterial.link.$invalid}">
+                    <label class="control-label">Link</label>
+                    <input name="link" type="text" class="form-control" ng-model="material.link" required>
+                    <span ng-show="criarMaterial.link.$error.required" class="help-block">Campo de preenchimento necessário</span>
+                </div>
+                <div class="form-group pull-right">
+                    <a href="#/materiais" class="btn btn-default">Cancelar</a>
+                    <a class="btn btn-danger" ng-click="apagar()" ng-show="material.$id">Remover</a>
+                    <button type="submit" class="btn btn-info" ng-click="salvar()"
+                            ng-disabled="criarMaterial.$invalid || alterado()">
+                        <span ng-show="material.$id">Alterar</span>
+                        <span ng-show="!material.$id">Cadastrar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
