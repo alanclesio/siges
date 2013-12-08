@@ -154,10 +154,9 @@ angular.module('siges.controllers', []).
         'Instituicoes',
         'Disciplinas',
         'Turmas',
-        'Frequencias',
         'ProjetoFireBaseUrl',
         'angularFire',
-        function ($scope, $routeParams, $filter, Instituicoes, Disciplinas, Turmas, Frequencias, ProjetoFireBaseUrl, angularFire) {
+        function ($scope, $routeParams, $filter, Instituicoes, Disciplinas, Turmas, ProjetoFireBaseUrl, angularFire) {
             $scope.instituicoes = Instituicoes;
             $scope.disciplinas = Disciplinas;
             $scope.turmas = Turmas;
@@ -335,6 +334,53 @@ angular.module('siges.controllers', []).
             })
     }]).
     controller('AvisosListarCtrl', ['$scope', 'Avisos', function ($scope, Avisos) {
+        $scope.avisos = Avisos;
+        $scope.paginaAtual = 0;
+        $scope.paginaTamanho = 10;
+        $scope.paginaTotal = function () {
+            return Math.ceil($scope.avisos.length / $scope.paginaTamanho);
+        }
+    }]).
+
+    // controles responsáveis por manter disciplinas
+    controller('DiscussaoCriarCtrl', ['$scope', '$location', '$timeout', 'Avisos', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Avisos, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
+        $scope.salvar = function () {
+            $scope.aviso.dataHora = new Date().getTime();
+            Avisos.add($scope.aviso, function () {
+                bootbox.alert('O aviso <strong>' + $scope.aviso.titulo + '</strong> foi salvo com sucesso!', function () {
+                    $timeout(function () {
+                        $location.path('/avisos');
+                    });
+                });
+            });
+        }
+    }]).
+    controller('DiscussaoEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
+        $scope.turmas = Turmas;
+        $scope.disciplinas = Disciplinas;
+        $scope.instituicoes = Instituicoes
+        angularFire(ProjetoFireBaseUrl.child('avisos').child($routeParams.id), $scope, 'remote', {}).
+            then(function () {
+                $scope.aviso = angular.copy($scope.remote);
+                $scope.aviso.$id = $routeParams.id;
+                $scope.alterado = function () {
+                    return angular.equals($scope.remote, $scope.aviso);
+                }
+                $scope.apagar = function () {
+                    $scope.remote = null;
+                    $location.path('/avisos');
+                };
+                $scope.salvar = function () {
+                    $scope.aviso.dataHora = new Date().getTime();
+                    $scope.remote = angular.copy($scope.aviso);
+                    $location.path('/avisos');
+                };
+            })
+    }]).
+    controller('DiscussaoListarCtrl', ['$scope', 'Avisos', function ($scope, Avisos) {
         $scope.avisos = Avisos;
         $scope.paginaAtual = 0;
         $scope.paginaTamanho = 10;
