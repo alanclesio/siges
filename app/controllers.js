@@ -188,6 +188,7 @@ angular.module('siges.controllers', []).
                         usuario.frequencias = usuario.frequencias || {};
                         usuario.frequencias[$scope.dataHora] = usuario.frequencias[$scope.dataHora] || {};
                         usuario.frequencias[$scope.dataHora].status = status;
+                        usuario.frequencias[$scope.dataHora].dataHora = $scope.dataHora;
                     };
                 });
         }]).
@@ -529,6 +530,16 @@ angular.module('siges.controllers', []).
         $scope.avaliacoes = Avaliacoes;
         $scope.disciplinas = Disciplinas;
         $scope.usuarios = Usuarios;
+    }]).
+    // controle responsável por mostrar as notas
+    controller('MinhasFrequenciasCtrl', ['$scope', '$rootScope', 'ProjetoFireBaseUrl', 'angularFire', function ($scope, $rootScope, ProjetoFireBaseUrl, angularFire) {
+        angularFire(ProjetoFireBaseUrl.child('usuarios'), $scope, 'usuarios', []).then(function(){
+            angular.forEach($scope.usuarios, function(usuario){
+                if(usuario.md5_hash == $rootScope.usuarioLogado.md5_hash){
+                    $scope.usuario = usuario;
+                }
+            });
+        });
     }]).
     // controle responsável por manter o calendário
     controller('CalendarioCtrl', ['$scope', function ($scope) {

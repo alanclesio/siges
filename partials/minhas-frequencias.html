@@ -1,0 +1,25 @@
+<div class="page-title ng-scope" ng-show="!!usuarioLogado">
+    <h2><i class="icon-desktop color"></i> Minhas frequencias
+        <small>Frequencias lançadas</small>
+    </h2>
+    <hr>
+</div>
+<div class="awidget" ng-show="usuarioLogado">
+    <div class="awidget-head">
+        <h3>Resumo da frequencia</h3>
+    </div>
+    <div class="awidget-body clearfix">
+        <div class="row">
+            <div ng-repeat="frequencia in usuario.frequencias">
+                <div class="col-sm-6 col-md-4" style="margin-bottom: 10px;">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3 style="margin-top: 0; text-align: center;">{{frequencia.dataHora | date:'dd/MM/yyyy'}}</h3>
+                            <p style="margin-bottom: 10px; text-align: center; font-size: 22px;">{{frequencia.status | presenca}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

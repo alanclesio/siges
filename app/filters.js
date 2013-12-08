@@ -41,4 +41,9 @@ angular.module('siges.filters', []).
             }
             return false;
         }
+    }).
+    filter('presenca', function () {
+        return function (entrada) {
+            return entrada ? 'Presente' : 'Ausente';
+        }
     });

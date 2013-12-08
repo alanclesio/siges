@@ -25,6 +25,7 @@
                 </tr>
                 </tbody>
             </table>
+            <div ng-show="usuarios.length">Não há usuários cadastrados para esta turma.</div>
             <div class="col-sm-6 col-md-4" ng-repeat="usuario in usuarios" style="margin-bottom: 10px;" ng-if="usuario.turmaId == routeId">
                 <div class="thumbnail">
                     <img ng-src="http://www.gravatar.com/avatar/{{usuario.md5_hash}}?s=80"
