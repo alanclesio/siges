@@ -1,44 +1,42 @@
-<div ng-show="usuarioLogado.admin">
-    <div class="page-title">
-        <h2><i class="icon-desktop color"></i>
-            <span ng-show="discussao.$id">Editar tópico</span>
-            <span ng-show="!discussao.$id">Novo tópico</span>
-            <small>
-                <span ng-show="discussao.$id">Depois de editar clique em 'Alterar'</span>
-                <span ng-show="!discussao.$id">Crie um novo tópico</span>
-            </small>
-        </h2>
-        <hr>
-    </div>
-    <div class="awidget clearfix">
-        <div class="awidget-body">
-            <form name="criarDiscussao" role="form">
-                <div class="form-group" ng-class="{'has-error': criarDiscussao.titulo.$invalid}">
-                    <label class="control-label">Título</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Título do discussão"
-                           ng-minlength="3" ng-model="discussao.titulo" autofocus required>
-                    <span ng-show="criarDiscussao.titulo.$error.required" class="help-block">Campo de preenchimento necessário</span>
+<div class="page-title">
+    <h2><i class="icon-desktop color"></i>
+        <span ng-show="discussao.$id">Editar tópico</span>
+        <span ng-show="!discussao.$id">Novo tópico</span>
+        <small>
+            <span ng-show="discussao.$id">Depois de editar clique em 'Alterar'</span>
+            <span ng-show="!discussao.$id">Crie um novo tópico</span>
+        </small>
+    </h2>
+    <hr>
+</div>
+<div class="awidget clearfix">
+    <div class="awidget-body">
+        <form name="criarDiscussao" role="form">
+            <div class="form-group" ng-class="{'has-error': criarDiscussao.titulo.$invalid}">
+                <label class="control-label">Título</label>
+                <input type="text" name="titulo" class="form-control" placeholder="Título do discussão"
+                       ng-minlength="3" ng-model="discussao.titulo" autofocus required>
+                <span ng-show="criarDiscussao.titulo.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="criarDiscussao.titulo.$error.minlength"
                           class="help-block">Pelo menos três caracteres</span>
-                </div>
-                <div class="form-group" ng-class="{'has-error': criarDiscussao.texto.$invalid}">
-                    <label class="control-label">Texto da discussao</label>
-                    <textarea name="texto" cols="30" rows="10" class="form-control" placeholder="Texto da discussão"
-                              ng-minlength="10" ng-model="discussao.texto" required></textarea>
-                    <span ng-show="criarDiscussao.texto.$error.required" class="help-block">Campo de preenchimento necessário</span>
+            </div>
+            <div class="form-group" ng-class="{'has-error': criarDiscussao.texto.$invalid}">
+                <label class="control-label">Texto da discussao</label>
+                <textarea name="texto" cols="30" rows="10" class="form-control" placeholder="Texto da discussão"
+                          ng-minlength="10" ng-model="discussao.texto" required></textarea>
+                <span ng-show="criarDiscussao.texto.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="criarDiscussao.texto.$error.minlength"
                           class="help-block">Pelo menos dez caracteres</span>
-                </div>
-                <div class="form-group pull-right">
-                    <a href="#/discussao" class="btn btn-default">Cancelar</a>
-                    <a class="btn btn-danger" ng-click="apagar()" ng-show="discussao.$id">Remover</a>
-                    <button type="submit" class="btn btn-info" ng-click="salvar()"
-                            ng-disabled="criarDiscussao.$invalid || alterado()">
-                        <span ng-show="discussao.$id">Alterar</span>
-                        <span ng-show="!discussao.$id">Cadastrar</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-group pull-right">
+                <a href="#/discussao" class="btn btn-default">Cancelar</a>
+                <a class="btn btn-danger" ng-click="apagar()" ng-show="discussao.$id">Remover</a>
+                <button type="submit" class="btn btn-info" ng-click="salvar()"
+                        ng-disabled="criarDiscussao.$invalid || alterado()">
+                    <span ng-show="discussao.$id">Alterar</span>
+                    <span ng-show="!discussao.$id">Cadastrar</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
