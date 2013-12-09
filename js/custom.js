@@ -2,7 +2,6 @@
 bootbox.setDefaults({locale: "br", animate: false});
 
 $(document).ready(function () {
-    
     $(".has_submenu > a").click(function (e) {
         e.preventDefault();
         var menu_li = $(this).parent("li");
