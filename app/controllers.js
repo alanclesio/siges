@@ -662,6 +662,24 @@ angular.module('siges.controllers', []).
             $location.path('/login');
         }
     }]).
+    // controle do perfil de usuário
+    controller('RecuperarSenhaCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl) {
+        if (localStorage.sigesUserAuth == "true") {
+            angularFire(ProjetoFireBaseUrl.child('usuarios').child($routeParams.id), $scope, 'remote', {}).
+                then(function () {
+                    $scope.usuarioLogado = angular.copy($scope.remote);
+                    $scope.alterado = function () {
+                        return angular.equals($scope.remote, $scope.usuarioLogado);
+                    };
+                    $scope.salvar = function () {
+                        $scope.remote = angular.copy($scope.usuarioLogado);
+                        $location.path('/perfil/' + $routeParams.id);
+                    };
+                })
+        } else {
+            $location.path('/login');
+        }
+    }]).
     // controle responsável por mostrar os avisos
     controller('MeusAvisosCtrl', ['$scope', '$rootScope', 'Avisos', function ($scope, $rootScope, Avisos) {
         $scope.avisos = Avisos;

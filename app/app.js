@@ -47,6 +47,7 @@ angular.module('siges', [
             "/usuarios": {templateUrl: 'partials/usuarios-listar.html', controller: 'UsuariosListarCtrl', requireLogin: true},
             "/primeiro-acesso": {templateUrl: 'partials/primeiro-acesso.html', controller: 'PrimeiroAcessoCtrl', requireLogin: false},
             "/perfil/:id": {templateUrl: 'partials/perfil.html', controller: 'PerfilCtrl', requireLogin: true},
+            "/recuperar-senha": {templateUrl: 'partials/recuperar-senha.html', controller: 'RecuperarSenhaCtrl', requireLogin: false},
             "/minhas-notas": {templateUrl: 'partials/minhas-notas.html', controller: 'MinhasNotasCtrl', requireLogin: true},
             "/minhas-frequencias": {templateUrl: 'partials/minhas-frequencias.html', controller: 'MinhasFrequenciasCtrl', requireLogin: true},
             "/meus-avisos": {templateUrl: 'partials/meus-avisos.html', controller: 'MeusAvisosCtrl', requireLogin: true},
