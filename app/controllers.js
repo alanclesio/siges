@@ -667,9 +667,6 @@ angular.module('siges.controllers', []).
         '$rootScope',
         '$location',
         '$timeout', function ($scope, Usuarios, Autenticacao, angularFire, $rootScope, $location, $timeout) {
-            $('input:visible').each(function(){
-                $(this).trigger('input');
-            });
             if ($rootScope.usuarioLogado) {
                 if ($location.$$path == '/login') {
                     $location.path('/meus-avisos');
