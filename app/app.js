@@ -24,6 +24,7 @@ angular.module('siges', [
             "/avaliacoes": {templateUrl: 'partials/avaliacoes-listar.html', controller: 'AvaliacoesListarCtrl', requireLogin: true},
             "/discussao/criar": {templateUrl: 'partials/discussao-detalhes.html', controller: 'DiscussaoCriarCtrl', requireLogin: true},
             "/discussao/editar/:id": {templateUrl: 'partials/discussao-detalhes.html', controller: 'DiscussaoEditarCtrl', requireLogin: true},
+            "/discussao/ver/:id": {templateUrl: 'partials/discussao-live.html', controller: 'DiscussaoLiveCtrl', requireLogin: true},
             "/discussao": {templateUrl: 'partials/discussao-listar.html', controller: 'DiscussaoListarCtrl', requireLogin: true},
             "/frequencias": {templateUrl: 'partials/frequencias-listar.html', controller: 'FrequenciasListarCtrl', requireLogin: true},
             "/frequencias/criar/:id": {templateUrl: 'partials/frequencias-detalhes.html', controller: 'FrequenciasCriarCtrl', requireLogin: true},

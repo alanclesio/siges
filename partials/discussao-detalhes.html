@@ -1,14 +1,16 @@
 <div ng-show="usuarioLogado.admin">
     <div class="page-title">
-        <h2><i class="icon-desktop color"></i> Nova discussão
-            <small>Inicie uma nova discussão</small>
+        <h2><i class="icon-desktop color"></i>
+            <span ng-show="discussao.$id">Editar tópico</span>
+            <span ng-show="!discussao.$id">Novo tópico</span>
+            <small>
+                <span ng-show="discussao.$id">Depois de editar clique em 'Alterar'</span>
+                <span ng-show="!discussao.$id">Crie um novo tópico</span>
+            </small>
         </h2>
         <hr>
     </div>
     <div class="awidget clearfix">
-        <div class="awidget-head">
-            <h3>Preencha todos os campos</h3>
-        </div>
         <div class="awidget-body">
             <form name="criarDiscussao" role="form">
                 <div class="form-group" ng-class="{'has-error': criarDiscussao.titulo.$invalid}">

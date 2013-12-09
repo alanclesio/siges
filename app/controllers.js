@@ -399,28 +399,48 @@ angular.module('siges.controllers', []).
                 };
             })
     }]).
+    controller('DiscussaoLiveCtrl', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'angularFire',
+        'ProjetoFireBaseUrl',
+        'Usuarios',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Usuarios) {
+        $scope.usuarios = Usuarios;
+        angularFire(ProjetoFireBaseUrl.child('discussoes').child($routeParams.id), $scope, 'remote', {}).
+            then(function () {
+                $scope.discussao = angular.copy($scope.remote);
+                $scope.discussao.$id = $routeParams.id;
+                $scope.responder = function () {
+                    var dataHora = new Date().getTime();
+                    $scope.resposta.dataHora = dataHora;
+                    $scope.resposta.autor = $scope.usuarioLogado;
+                    $scope.discussao.respostas = $scope.discussao.respostas || {};
+                    $scope.discussao.respostas[dataHora] = $scope.resposta;
+                    $scope.remote = angular.copy($scope.discussao);
+                    $scope.resposta = null;
+                };
+                $scope.removerResposta = function (resposta){
+                    angular.forEach($scope.discussao.respostas, function(resp){
+                        if(resp.dataHora == resposta.dataHora){
+                            delete $scope.discussao.respostas[resposta.dataHora];
+                        }
+                    });
+                    $scope.remote = angular.copy($scope.discussao);
+                };
+            })
+    }]).
     controller('DiscussaoListarCtrl', [
         '$scope',
         'Discussoes',
-        'ProjetoFireBaseUrl',
-        'angularFire',
-        function ($scope, Discussoes, ProjetoFireBaseUrl, angularFire) {
+        'Usuarios',
+        function ($scope, Discussoes, Usuarios) {
         $scope.discussoes = Discussoes;
-        angularFire(ProjetoFireBaseUrl.child('usuarios'), $scope, 'usuarios', {}).
-            then(function (){
-                angular.forEach($scope.discussoes, function(discussao){
-                    angular.forEach($scope.usuarios, function(usuario){
-                        if(discussao.md5_hash == usuario.md5_hash){
-                            discussao.autor = usuario;
-                        }
-                    });
-                });
-            });
+        $scope.usuarios = Usuarios;
         $scope.paginaAtual = 0;
         $scope.paginaTamanho = 10;
-        $scope.paginaTotal = function () {
-            return Math.ceil($scope.discussoes.length / $scope.paginaTamanho);
-        }
+        $scope.Math = window.Math;
     }]).
     // controles responsáveis por manter turmas
     controller('TurmasCriarCtrl', ['$scope', '$location', '$timeout', 'Turmas', 'Disciplinas', function ($scope, $location, $timeout, Turmas, Disciplinas) {

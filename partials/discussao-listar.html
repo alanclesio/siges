@@ -1,40 +1,48 @@
-<div ng-show="usuarioLogado.admin">
-    <div class="page-title">
-        <h2><i class="icon-desktop color"></i> Discussão
-            <small>Tire dúvidas, auxilie os colegas, aprenda ou apenas converse!</small>
-        </h2>
-        <hr>
-    </div>
-    <div class="awidget clearfix">
-        <div class="awidget-body clearfix">
-            <a href="#/discussao/criar" class="btn btn-default" >Iniciar uma discussão</a>
-            <ul class="pagination pull-right" style="padding-left: 0" ng-show="Math.ceil((discussoes | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho) > 1">
-                <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
-                    Anterior
-                </button>
-                {{paginaAtual+1}} / {{(Math.ceil((discussoes | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho))}}
-                <button class="btn btn-default" ng-disabled="paginaAtual >= (discussoes | filter:{turmaId:usuarioLogado.turmaId}).length/paginaTamanho - 1"
-                        ng-click="paginaAtual=paginaAtual+1">Próximo
-                </button>
-            </ul>
-            <ul  ng-show="!!usuarioLogado" class="recent" style="padding-left: 0">
-                <li ng-repeat="discussao in discussoes | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
-                    <h2>
+<div class="page-title">
+    <h2><i class="icon-desktop color"></i> Discussão
+        <small>Tire dúvidas, auxilie os colegas, aprenda ou apenas converse!</small>
+    </h2>
+    <hr>
+</div>
+<div class="awidget clearfix">
+    <div class="awidget-body clearfix">
+        <a href="#/discussao/criar" class="btn btn-info">Iniciar uma discussão</a>
+        <ul class="pagination pull-right" style="padding-left: 0"
+            ng-show="Math.ceil((discussoes | filter:{turmaId:usuarioLogado.turmaId}).length / paginaTamanho) > 1">
+            <button class="btn btn-default" ng-disabled="!paginaAtual" ng-click="paginaAtual=paginaAtual-1">
+                Anterior
+            </button>
+            {{paginaAtual+1}} / {{(Math.ceil((discussoes | filter:{turmaId:usuarioLogado.turmaId}).length /
+            paginaTamanho))}}
+            <button class="btn btn-default"
+                    ng-disabled="paginaAtual >= (discussoes | filter:{turmaId:usuarioLogado.turmaId}).length/paginaTamanho - 1"
+                    ng-click="paginaAtual=paginaAtual+1">Próximo
+            </button>
+        </ul>
+        <ul ng-show="!!usuarioLogado" class="recent" style="padding-left: 0">
+            <li ng-repeat="discussao in discussoes | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
+                <h2>
+                    <a href="#/discussao/ver/{{discussao.$id}}">
                         {{discussao.titulo}}
-                        <a href="#/discussao/editar/{{ discussao.$id }}" type="button"
-                           title="Editar discussão {{ discussao.titulo }}" ng-if="usuarioLogado.md5_hash == discussao.md5_hash"
-                           class="btn btn-xs btn-info"><i class="icon-pencil"></i></a>
-                    </h2>
-                    <div class="recent-content">
-                        <div class="recent-meta" ng-repeat="usuario in usuarios" ng-if="usuario.md5_hash == discussao.md5_hash">
-                            Postado por {{usuario.nome}} às {{discussao.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}
-                        </div>
-                        <div ng-bind-html="discussao.texto | quebralinha"></div>
-                        <div class="clearfix"></div>
+                    </a>
+                    <a href="#/discussao/editar/{{ discussao.$id }}" type="button"
+                       title="Editar discussão {{ discussao.titulo }}"
+                       ng-if="usuarioLogado.md5_hash == discussao.md5_hash"
+                       class="btn btn-xs btn-info"><i class="icon-pencil"></i></a>
+                    <button class="btn btn-default btn-xs disabled">{{discussao.respostas | getObjectLength}}</button>
+                </h2>
+                <div class="recent-content">
+                    <div class="recent-meta" ng-repeat="usuario in usuarios"
+                         ng-if="usuario.md5_hash == discussao.md5_hash">
+                        Postado por {{usuario.nome}} às {{discussao.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}
                     </div>
-                </li>
-            </ul>
-            <div ng-show="!(discussoes | filter:{turmaId:usuarioLogado.turmaId}).length">Não existe nenhum discussao cadastrado para sua turma.</div>
+                    <div ng-bind-html="discussao.texto | quebralinha"></div>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+        </ul>
+        <div ng-show="!(discussoes | filter:{turmaId:usuarioLogado.turmaId}).length">Não existe nenhum discussao
+            cadastrado para sua turma.
         </div>
     </div>
 </div>

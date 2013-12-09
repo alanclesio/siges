@@ -42,6 +42,15 @@ angular.module('siges.filters', []).
             return false;
         }
     }).
+    filter('getObjectLength', function () {
+        return function (obj) {
+            var size= 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        }
+    }).
     filter('presenca', function () {
         return function (entrada) {
             return entrada ? 'Presente' : 'Ausente';

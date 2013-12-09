@@ -856,7 +856,7 @@ div.ppt {
 }
 
 .chats .by-me img {
-    max-width: 40px;
+    max-width: 55px;
     margin-top: 5px;
     margin-right: 10px;
 }
@@ -885,23 +885,17 @@ div.ppt {
 }
 
 .chats .by-me .chat-content:after {
-    border-color: rgba(255, 255, 255, 1);
-    border-right-color: #16cbe6;
-    border-width: 10px;
     top: 30%;
     margin-top: -10px;
 }
 
 .chats .by-me .chat-content:before {
-    border-color: rgba(238, 238, 238, 0);
-    border-right-color: #ccc;
-    border-width: 11px;
     top: 30%;
     margin-top: -11px;
 }
 
 .chats .by-other img {
-    max-width: 40px;
+    max-width: 55px;
     margin-top: 5px;
     margin-left: 10px;
 }
@@ -932,17 +926,11 @@ div.ppt {
 }
 
 .chats .by-other .chat-content:after {
-    border-color: rgba(255, 255, 255, 1);
-    border-left-color: #16cbe6;
-    border-width: 10px;
     top: 30%;
     margin-top: -10px;
 }
 
 .chats .by-other .chat-content:before {
-    border-color: rgba(238, 238, 238, 0);
-    border-left-color: #ccc;
-    border-width: 11px;
     top: 30%;
     margin-top: -11px;
 }
