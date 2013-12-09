@@ -24,4 +24,7 @@ angular.module('siges.factories', []).
     }).
     factory('Instituicoes', function (angularFireCollection, ProjetoFireBaseUrl) {
         return angularFireCollection(ProjetoFireBaseUrl.child('instituicoes'));
+    }).
+    factory('Discussoes', function (angularFireCollection, ProjetoFireBaseUrl) {
+        return angularFireCollection(ProjetoFireBaseUrl.child('discussoes'));
     });

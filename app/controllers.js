@@ -343,16 +343,26 @@ angular.module('siges.controllers', []).
     }]).
 
     // controles responsáveis por manter disciplinas
-    controller('DiscussaoCriarCtrl', ['$scope', '$location', '$timeout', 'Avisos', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $timeout, Avisos, Turmas, Disciplinas, Instituicoes) {
+    controller('DiscussaoCriarCtrl', [
+        '$scope',
+        '$location',
+        '$timeout',
+        'Discussoes',
+        'Turmas',
+        'Disciplinas',
+        'Instituicoes',
+        function ($scope, $location, $timeout, Discussoes, Turmas, Disciplinas, Instituicoes) {
         $scope.turmas = Turmas;
         $scope.disciplinas = Disciplinas;
         $scope.instituicoes = Instituicoes
         $scope.salvar = function () {
-            $scope.aviso.dataHora = new Date().getTime();
-            Avisos.add($scope.aviso, function () {
-                bootbox.alert('O aviso <strong>' + $scope.aviso.titulo + '</strong> foi salvo com sucesso!', function () {
+            $scope.discussao.turmaId = $scope.usuarioLogado.turmaId;
+            $scope.discussao.md5_hash = $scope.usuarioLogado.md5_hash;
+            $scope.discussao.dataHora = new Date().getTime();
+            Discussoes.add($scope.discussao, function () {
+                bootbox.alert('A discussão <strong>' + $scope.discussao.titulo + '</strong> foi cadastrada com sucesso!', function () {
                     $timeout(function () {
-                        $location.path('/avisos');
+                        $location.path('/discussao');
                     });
                 });
             });
@@ -380,12 +390,18 @@ angular.module('siges.controllers', []).
                 };
             })
     }]).
-    controller('DiscussaoListarCtrl', ['$scope', 'Avisos', function ($scope, Avisos) {
-        $scope.avisos = Avisos;
+    controller('DiscussaoListarCtrl', ['$scope', 'Discussoes', 'Usuarios', function ($scope, Discussoes, Usuarios) {
+        $scope.discussoes = Discussoes;
+        $scope.usuarios = Usuarios;
+        angular.forEach($scope.usuarios, function(usuario){
+            if (usuario.md5_hash == $scope.usuarioLogado.md5_hash){
+                $scope.autor = usuario;
+            }
+        });
         $scope.paginaAtual = 0;
         $scope.paginaTamanho = 10;
         $scope.paginaTotal = function () {
-            return Math.ceil($scope.avisos.length / $scope.paginaTamanho);
+            return Math.ceil($scope.discussoes.length / $scope.paginaTamanho);
         }
     }]).
     // controles responsáveis por manter turmas
