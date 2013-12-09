@@ -368,36 +368,54 @@ angular.module('siges.controllers', []).
             });
         }
     }]).
-    controller('DiscussaoEditarCtrl', ['$scope', '$location', '$routeParams', 'angularFire', 'ProjetoFireBaseUrl', 'Turmas', 'Disciplinas', 'Instituicoes', function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
+    controller('DiscussaoEditarCtrl', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'angularFire',
+        'ProjetoFireBaseUrl',
+        'Turmas',
+        'Disciplinas',
+        'Instituicoes',
+        function ($scope, $location, $routeParams, angularFire, ProjetoFireBaseUrl, Turmas, Disciplinas, Instituicoes) {
         $scope.turmas = Turmas;
         $scope.disciplinas = Disciplinas;
         $scope.instituicoes = Instituicoes
-        angularFire(ProjetoFireBaseUrl.child('avisos').child($routeParams.id), $scope, 'remote', {}).
+        angularFire(ProjetoFireBaseUrl.child('discussoes').child($routeParams.id), $scope, 'remote', {}).
             then(function () {
-                $scope.aviso = angular.copy($scope.remote);
-                $scope.aviso.$id = $routeParams.id;
+                $scope.discussao = angular.copy($scope.remote);
+                $scope.discussao.$id = $routeParams.id;
                 $scope.alterado = function () {
-                    return angular.equals($scope.remote, $scope.aviso);
+                    return angular.equals($scope.remote, $scope.discussao);
                 }
                 $scope.apagar = function () {
                     $scope.remote = null;
-                    $location.path('/avisos');
+                    $location.path('/discussao');
                 };
                 $scope.salvar = function () {
-                    $scope.aviso.dataHora = new Date().getTime();
-                    $scope.remote = angular.copy($scope.aviso);
-                    $location.path('/avisos');
+                    $scope.discussao.dataHora = new Date().getTime();
+                    $scope.remote = angular.copy($scope.discussao);
+                    $location.path('/discussao');
                 };
             })
     }]).
-    controller('DiscussaoListarCtrl', ['$scope', 'Discussoes', 'Usuarios', function ($scope, Discussoes, Usuarios) {
+    controller('DiscussaoListarCtrl', [
+        '$scope',
+        'Discussoes',
+        'ProjetoFireBaseUrl',
+        'angularFire',
+        function ($scope, Discussoes, ProjetoFireBaseUrl, angularFire) {
         $scope.discussoes = Discussoes;
-        $scope.usuarios = Usuarios;
-        angular.forEach($scope.usuarios, function(usuario){
-            if (usuario.md5_hash == $scope.usuarioLogado.md5_hash){
-                $scope.autor = usuario;
-            }
-        });
+        angularFire(ProjetoFireBaseUrl.child('usuarios'), $scope, 'usuarios', {}).
+            then(function (){
+                angular.forEach($scope.discussoes, function(discussao){
+                    angular.forEach($scope.usuarios, function(usuario){
+                        if(discussao.md5_hash == usuario.md5_hash){
+                            discussao.autor = usuario;
+                        }
+                    });
+                });
+            });
         $scope.paginaAtual = 0;
         $scope.paginaTamanho = 10;
         $scope.paginaTotal = function () {

@@ -19,9 +19,16 @@
             </ul>
             <ul  ng-show="!!usuarioLogado" class="recent" style="padding-left: 0">
                 <li ng-repeat="discussao in discussoes | filter:{turmaId:usuarioLogado.turmaId} | orderBy:['-dataHora'] | iniciaEm:paginaAtual*paginaTamanho | limitTo:paginaTamanho">
-                    <h2>{{discussao.titulo}}</h2>
+                    <h2>
+                        {{discussao.titulo}}
+                        <a href="#/discussao/editar/{{ discussao.$id }}" type="button"
+                           title="Editar discussão {{ discussao.titulo }}" ng-if="usuarioLogado.md5_hash == discussao.md5_hash"
+                           class="btn btn-xs btn-info"><i class="icon-pencil"></i></a>
+                    </h2>
                     <div class="recent-content">
-                        <div class="recent-meta">Postado por {{autor.nome}} às {{discussao.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}</div>
+                        <div class="recent-meta" ng-repeat="usuario in usuarios" ng-if="usuario.md5_hash == discussao.md5_hash">
+                            Postado por {{usuario.nome}} às {{discussao.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}
+                        </div>
                         <div ng-bind-html="discussao.texto | quebralinha"></div>
                         <div class="clearfix"></div>
                     </div>
