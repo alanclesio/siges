@@ -5,7 +5,10 @@
     <hr>
 </div>
 <div class="awidget clearfix">
-    <div class="awidget-body">
+    <div class="awidget-body" ng-show="!discussao">
+        <h2>Tópico inexistente ou foi removido.</h2>
+    </div>
+    <div class="awidget-body" ng-show="discussao">
         <h2>{{discussao.titulo}}</h2>
 
         <div class="recent-meta" ng-repeat="usuario in usuarios" ng-if="usuario.md5_hash == discussao.md5_hash">
@@ -13,31 +16,33 @@
         </div>
         <p>{{discussao.texto}}</p>
         <hr/>
-        <ul class="chats" ng-repeat="resposta in discussao.respostas">
-            <li ng-class="{'by-me': $odd, 'by-other': $even}">
-                <div ng-class="{'pull-left':$odd, 'pull-right': $even}">
-                    <img ng-src="http://www.gravatar.com/avatar/{{resposta.autor.md5_hash}}?s=100"
-                         title="{{resposta.autor.nome}}" data-toggle="tooltip"
-                         class="img-thumbnail img-circle img-responsive">
-                </div>
-                <div class="chat-content">
-                    <div class="chat-meta">
-                        <h3 style="margin-top: 0">{{resposta.titulo}}
-                            <small class="pull-right">{{resposta.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}
-                                <button class="btn btn-default btn-xs"
-                                        ng-if="resposta.autor.md5_hash == usuarioLogado.md5_hash"
-                                        ng-click="removerResposta(resposta)">
-                                    <i class="icon-remove"></i>
-                                </button>
-                            </small>
-                        </h3>
+        <div class="pre-scrollable">
+            <ul class="chats" ng-repeat="resposta in discussao.respostas">
+                <li ng-class="{'by-me': $odd, 'by-other': $even}">
+                    <div ng-class="{'pull-left':$odd, 'pull-right': $even}">
+                        <img ng-src="http://www.gravatar.com/avatar/{{resposta.autor.md5_hash}}?s=100"
+                             title="{{resposta.autor.nome}}" data-toggle="tooltip"
+                             class="img-thumbnail img-circle img-responsive">
                     </div>
-                    {{resposta.texto}}
-                    <div class="clearfix"></div>
-                </div>
-            </li>
-            <hr/>
-        </ul>
+                    <div class="chat-content">
+                        <div class="chat-meta">
+                            <h3 style="margin-top: 0">{{resposta.titulo}}
+                                <small class="pull-right">{{resposta.dataHora | date:'dd\/MM\/yyyy \'às\' HH:mm' }}
+                                    <button class="btn btn-default btn-xs"
+                                            ng-if="resposta.autor.md5_hash == usuarioLogado.md5_hash"
+                                            ng-click="removerResposta(resposta)">
+                                        <i class="icon-remove"></i>
+                                    </button>
+                                </small>
+                            </h3>
+                        </div>
+                        {{resposta.texto}}
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
+                <hr/>
+            </ul>
+        </div>
         <form name="respostaDiscussao">
             <div class="form-group" ng-class="{'has-error': respostaDiscussao.titulo.$invalid}">
                 <label class="control-label">Título</label>
@@ -49,7 +54,7 @@
             </div>
             <div class="form-group" ng-class="{'has-error': respostaDiscussao.texto.$invalid}">
                 <label class="control-label">Texto da discussao</label>
-                <textarea name="texto" cols="30" rows="10" class="form-control" placeholder="Texto da resposta"
+                <textarea name="texto" cols="30" rows="3" class="form-control" placeholder="Texto da resposta"
                           ng-minlength="10" ng-model="resposta.texto" required></textarea>
                 <span ng-show="respostaDiscussao.texto.$error.required" class="help-block">Campo de preenchimento necessário</span>
                     <span ng-show="respostaDiscussao.texto.$error.minlength"
