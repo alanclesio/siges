@@ -36,6 +36,28 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function(){
+    $(".sidebar-dropdown a").on('click',function(e){
+        e.preventDefault();
+
+        if(!$(this).hasClass("dropy")) {
+            // hide any open menus and remove all other classes
+            $(".sidey").slideUp(350);
+            $(".sidebar-dropdown a").removeClass("dropy");
+
+            // open our new menu and add the dropy class
+            $(".sidey").slideDown(350);
+            $(this).addClass("dropy");
+        }
+
+        else if($(this).hasClass("dropy")) {
+            $(this).removeClass("dropy");
+            $(".sidey").slideUp(350);
+        }
+    });
+
+});
+
 /* Scroll to Top starts */
 
 $(".totop").hide();
