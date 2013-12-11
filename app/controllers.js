@@ -411,19 +411,20 @@ angular.module('siges.controllers', []).
             angularFire(ProjetoFireBaseUrl.child('discussoes').child($routeParams.id), $scope, 'discussao', {});
             $scope.responder = function () {
                 var dataHora = new Date().getTime();
+                var chave = ProjetoFireBaseUrl.push().name();
                 var resp = {
                     autor: $scope.usuarioLogado,
                     titulo: $scope.resposta.titulo,
                     dataHora: dataHora,
+                    chave: chave,
                     texto: $scope.resposta.texto
                 };
-                var chave = ProjetoFireBaseUrl.push().name();
                 $scope.discussao.respostas = $scope.discussao.respostas || {};
                 $scope.discussao.respostas[chave] = resp;
                 $scope.resposta = null;
             }
             $scope.removerResposta = function (resposta){
-                delete $scope.discussao.respostas[resposta.dataHora];
+                delete $scope.discussao.respostas[resposta.chave];
             };
         }]).
     controller('DiscussaoListarCtrl', [
