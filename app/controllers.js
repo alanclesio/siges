@@ -410,7 +410,7 @@ angular.module('siges.controllers', []).
             $scope.usuarios = Usuarios;
             angularFire(ProjetoFireBaseUrl.child('discussoes').child($routeParams.id), $scope, 'discussao', {});
             $scope.responder = function () {
-                var dataHora = new Date().getTime();
+                var dataHora = Firebase.ServerValue.TIMESTAMP;
                 var chave = ProjetoFireBaseUrl.push().name();
                 var resp = {
                     autor: $scope.usuarioLogado,
